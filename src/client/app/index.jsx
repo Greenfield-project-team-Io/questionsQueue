@@ -10,6 +10,7 @@ class App extends React.Component {
     this.state = {
       questions: [
         {
+          id: 1,
           questionText: 'What is a question?',
           votes: 0,
           answered: false,

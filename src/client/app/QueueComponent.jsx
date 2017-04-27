@@ -3,7 +3,7 @@ import QuestionComponent from './QuestionComponent.jsx';
 
 const QueueComponent = function (props) {
   const questions = props.questions.map(q => {
-    return <QuestionComponent question={q} key={q.toString()} />;
+    return <QuestionComponent question={q} key={q.id} />;
   });
   return (
     <div>
