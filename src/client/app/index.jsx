@@ -14,7 +14,7 @@ class App extends React.Component {
           questionText: 'What is a question?',
           votes: 0,
           answered: false,
-          createAt: Date.now()
+          createdAt: Date.now()
         }
       ]
     };
