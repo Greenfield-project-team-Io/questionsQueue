@@ -13,9 +13,24 @@ class App extends React.Component {
           id: 1,
           questionText: 'What is a question?',
           votes: 0,
+          answered: true,
+          createdAt: Date.now()
+        },
+        {
+          id: 2,
+          questionText: 'Why is the sky blue?',
+          votes: 1,
+          answered: false,
+          createdAt: Date.now()
+        },
+        {
+          id: 3,
+          questionText: 'Why are you building your project in React?',
+          votes: 15,
           answered: false,
           createdAt: Date.now()
         }
+
       ]
     };
   }
@@ -31,7 +46,10 @@ class App extends React.Component {
           Questions Queue
         </h1>
         <QuestionFormComponent />
-        <QueueComponent questions={this.state.questions} />
+        <h2>Pending Questions</h2>
+        <QueueComponent questions={this.state.questions.filter(q => !q.answered)} />
+          <h2>Answered Questions</h2>
+          <QueueComponent questions={this.state.questions.filter(q => q.answered)} />
       </div>
     );
   }
