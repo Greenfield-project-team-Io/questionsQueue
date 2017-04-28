@@ -4,10 +4,9 @@ class QuestionFormComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionText: ''
+      questionText: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange(event) {
@@ -16,18 +15,13 @@ class QuestionFormComponent extends React.Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
-  }
-
-  handleSubmit(event) {
-    alert(this.state.questionText);
-    event.preventDefault();
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={(event) => {event.preventDefault();this.props.handleSubmit(this.state.questionText)}}>
         <textarea name="questionText" onChange={this.handleInputChange} />
         <input type="submit" value="Submit" />
       </form>
