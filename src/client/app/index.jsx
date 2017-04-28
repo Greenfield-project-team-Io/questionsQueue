@@ -34,13 +34,27 @@ class App extends React.Component {
       ]
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getQuestions = this.getQuestions.bind(this);
+  }
+  getQuestions() {
+    fetch('/api/questions')
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        this.setState({
+          questions: json,
+        });
+      })
+    ;
   }
   componentDidMount() {
-    /*
-     * Make a GET request to /api/questions and populate this.state.questions with the response data (using setState?)
-     */
+    this.getQuestions();
+    this.interval = setInterval(() => {
+      this.getQuestions();
+    }, 2000);
   }
-  render () {
+  render() {
     return (
       <div>
         <h1>
