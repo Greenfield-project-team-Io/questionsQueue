@@ -33,6 +33,7 @@ class App extends React.Component {
 
       ]
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     /*
@@ -45,13 +46,24 @@ class App extends React.Component {
         <h1>
           Questions Queue
         </h1>
-        <QuestionFormComponent />
+        <QuestionFormComponent handleSubmit={this.handleSubmit} />
         <h2>Pending Questions</h2>
         <QueueComponent questions={this.state.questions.filter(q => !q.answered)} />
           <h2>Answered Questions</h2>
           <QueueComponent questions={this.state.questions.filter(q => q.answered)} />
       </div>
     );
+  }
+  handleSubmit(text) {
+    fetch('/api/questions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        data: text,
+      }),
+    });
   }
 }
 
