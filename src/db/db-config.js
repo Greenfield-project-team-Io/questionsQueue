@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const password = require('../../credentials');
 
-mongoose.connect('mongodb://localhost:0000/app');
+mongoose.connect(`mongodb://io:${password}@ds123311.mlab.com:23311/questionsqueue`);
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   console.log('Mongodb connection open');
