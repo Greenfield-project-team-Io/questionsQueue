@@ -33,11 +33,27 @@ class App extends React.Component {
 
       ]
     };
+    this.getQuestions = this.getQuestions.bind(this);
+  }
+  getQuestions() {
+    fetch('/api/questions')
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        /* I'm assuming the JSON is just an array. Modify this if that is not the case.
+         */
+        this.setState({
+          questions: json,
+        });
+      })
+    ;
   }
   componentDidMount() {
     /*
      * Make a GET request to /api/questions and populate this.state.questions with the response data (using setState?)
      */
+     this.getQuestions();
   }
   render () {
     return (
