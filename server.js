@@ -21,7 +21,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.resolve(__dirname, '/src/client')));
+app.use(express.static(path.resolve(__dirname, 'src/client')));
 
 app.get('/api/questions', (req, res) => {
   console.log('GET req received');
@@ -40,31 +40,31 @@ app.get('/api/questions', (req, res) => {
 app.post('/api/questions', (req, res) => {
   console.log('POST req received');
   // add new questions to the DB
-  var newQuestion = new Question({
+  const newQuestion = new Question({
     questionText: req.body.data,
     votes: 0,
-    answered: false
-  })
+    answered: false,
+  });
 
   newQuestion.save((err, question) => {
     if (err) {
       console.log('ERRROR!', err);
       res.status(500).res.send(err);
     } else {
-      res.status(200).send();
+      res.status(200).send(question);
     }
   });
 });
 
-app.put('/api/questions', (err, data) => {
+app.put('/api/questions', (req, res) => {
   console.log('PUT req received');
   // make edits to stored questions, return new version
-  Question.findByIdAndUpdate(id, { $set: { text: 'req.body.data' }}, { new: true }, function (err, data) {
-    if (err) return handleError(err);
+  Question.findByIdAndUpdate(id, { $set: { text: 'req.body.data' } }, { new: true }, (err, data) => {
+    if (err) console.error(err);
     res.send(data);
-  })
+  });
 });
 
 app.listen(port, () => {
-  console.log('Listening to port...' + port);
+  console.log(`Listening to port ${port}`);
 });
