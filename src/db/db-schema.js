@@ -1,11 +1,11 @@
-var db = require('./db-config');
-var mongoose = require('mongoose');
+const db = require('./db-config');
+const mongoose = require('mongoose');
 
-var questionSchema = new mongoose.Schema({
-	questionText : String,
-	votes : Number,
-	answered : Boolean,
+const questionSchema = new mongoose.Schema({
+  questionText: String,
+  votes: Number,
+  answered: Boolean,
 });
 
-//exporting the questionQueue schema with questionQueue instance
+// exporting the questionQueue schema with questionQueue instance
 module.exports = mongoose.model('Question', questionSchema);

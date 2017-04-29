@@ -1,13 +1,10 @@
-var mongoose = require('mongoose');
-
-//mLab API key for the database is :
-
+const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:0000/app');
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', () => {
   console.log('Mongodb connection open');
 });
 
