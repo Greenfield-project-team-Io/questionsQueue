@@ -14,45 +14,36 @@ class App extends React.Component {
           questionText: 'What is a question?',
           votes: 0,
           answered: true,
-          createdAt: Date.now()
+          createdAt: Date.now(),
         },
         {
           id: 2,
           questionText: 'Why is the sky blue?',
           votes: 1,
           answered: false,
-          createdAt: Date.now()
+          createdAt: Date.now(),
         },
         {
           id: 3,
           questionText: 'Why are you building your project in React?',
           votes: 15,
           answered: false,
-          createdAt: Date.now()
-        }
+          createdAt: Date.now(),
+        },
 
-      ]
+      ],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
   }
   getQuestions() {
     fetch('/api/questions')
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        this.setState({
-          questions: json,
-        });
-      })
-    ;
+      .then(res => res.json())
+      .then(json => this.setState({ questions: json }));
   }
   componentDidMount() {
     this.getQuestions();
-    this.interval = setInterval(() => {
-      this.getQuestions();
-    }, 2000);
+    this.interval = setInterval(() => this.getQuestions(), 2000);
   }
   render() {
     return (
@@ -71,12 +62,8 @@ class App extends React.Component {
   handleSubmit(text) {
     fetch('/api/questions', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        data: text,
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
     });
   }
 }
