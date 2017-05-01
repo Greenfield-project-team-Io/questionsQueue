@@ -14,17 +14,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Question = require('./src/db/db-schema');
-// const morgan = require('morgan');
+const morgan = require('morgan');
 
 const port = process.env.PORT || 8080;
 const app = express();
 
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, 'src/client')));
 
 app.get('/api/questions', (req, res) => {
-  console.log('GET req received');
   // request all question data form DB, send data in response
   Question.find({}, (err, questions) => {
     if (err) {
@@ -38,10 +38,9 @@ app.get('/api/questions', (req, res) => {
 });
 
 app.post('/api/questions', (req, res) => {
-  console.log('POST req received');
   // add new questions to the DB
   const newQuestion = new Question({
-    questionText: req.body.data,
+    questionText: req.body.text,
     votes: 0,
     answered: false,
   });
@@ -57,13 +56,17 @@ app.post('/api/questions', (req, res) => {
 });
 
 app.put('/api/questions', (req, res) => {
-  console.log('PUT req received');
   const id = req.body._id;
   // make edits to stored questions, return new version
   Question.findByIdAndUpdate(id, req.body, { new: true }, (err, data) => {
     if (err) console.error(err);
     res.send(data);
   });
+});
+
+app.delete('/api/questions', (req, res) => {
+  Question.findByIdAndRemove(req.body)
+  .then(() => res.status(202).send());
 });
 
 app.listen(port, () => {
