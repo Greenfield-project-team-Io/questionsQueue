@@ -4,7 +4,7 @@ import { Card, CardActions, CardText } from 'material-ui/Card';
 
 const QuestionComponent = (props) => {
   const question = props.question;
-  let buttons = <div><button onClick={() => props.handleDelete(question)}>Delete</button></div>;
+  let buttons = <div><FlatButton onClick={() => props.handleDelete(question)} label="Delete" /></div>;
   if (!question.answered) {
     buttons = (
       <div>
@@ -15,8 +15,7 @@ const QuestionComponent = (props) => {
     );
   }
   return (
-    <div style={{ margin: '10px' }}>
-      <Card>
+      <Card className="question">
         <CardText>
           {question.questionText}
         <div>Votes: {question.votes}</div>
@@ -26,7 +25,6 @@ const QuestionComponent = (props) => {
           {buttons}
         </CardActions>
       </Card>
-    </div>
   );
 };
 

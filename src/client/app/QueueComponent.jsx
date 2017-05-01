@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, CardText, CardHeader, CardTitle } from 'material-ui/Card';
 import QuestionComponent from './QuestionComponent.jsx';
 
 const QueueComponent = (props) => {
@@ -10,10 +11,15 @@ const QueueComponent = (props) => {
         />
     ));
   return (
-    <div>
-      This is a queue component
-      {questions}
-    </div>
+    <Card className="queue">
+      <CardHeader title={props.title}
+        actAsExpander={true}
+        showExpandableButton={true}
+        />
+      <CardText expandable={true}>
+        {questions}
+      </CardText>
+    </Card>
   );
 };
 

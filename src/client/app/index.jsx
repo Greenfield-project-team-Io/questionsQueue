@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import AppBar from 'material-ui/AppBar'
 
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
@@ -17,6 +19,11 @@ const putRequest = (question) =>
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    // This fixes an error of 'Unknown prop `onTouchTap`...' when using
+    // expandable cards.
+    injectTapEventPlugin();
+
     this.state = {
       questions: [],
     };
@@ -73,21 +80,20 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <h1>
-            Questions Queue
-          </h1>
+          <AppBar title="Question Queue" showMenuIconButton={false} />
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
-          <h2>Pending Questions</h2>
           <QueueComponent
+            title="Pending Questions"
             questions={this.state.questions.filter(q => !q.answered)}
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
             />
-          <h2>Answered Questions</h2>
-          <QueueComponent questions={this.state.questions.filter(q => q.answered)}
+          <QueueComponent
+            title="Answered Questions"
+            questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
-          />
+            />
         </div>
       </MuiThemeProvider>
     );

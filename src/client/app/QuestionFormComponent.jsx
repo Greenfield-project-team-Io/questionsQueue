@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton';
 
 class QuestionFormComponent extends React.Component {
@@ -33,15 +34,19 @@ class QuestionFormComponent extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <TextField
-          name="questionText"
-          ref="textBox"
-          multiLine={true}
-          floatingLabelText="Ask a question..."
-          onChange={this.handleInputChange} />
-        <RaisedButton type="submit" label="Submit" />
-      </form>
+      <Paper>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <TextField
+              name="questionText"
+              ref="textBox"
+              multiLine={true}
+              floatingLabelText="Ask a question..."
+              onChange={this.handleInputChange} />
+            </div>
+          <RaisedButton type="submit" label="Submit" />
+        </form>
+      </Paper>
     );
   }
 }
