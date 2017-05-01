@@ -7,32 +7,7 @@ import QuestionFormComponent from './QuestionFormComponent.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      questions: [
-        {
-          id: 1,
-          questionText: 'What is a question?',
-          votes: 0,
-          answered: true,
-          createdAt: Date.now(),
-        },
-        {
-          id: 2,
-          questionText: 'Why is the sky blue?',
-          votes: 1,
-          answered: false,
-          createdAt: Date.now(),
-        },
-        {
-          id: 3,
-          questionText: 'Why are you building your project in React?',
-          votes: 15,
-          answered: false,
-          createdAt: Date.now(),
-        },
-
-      ],
-    };
+    this.state = {};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
   }
