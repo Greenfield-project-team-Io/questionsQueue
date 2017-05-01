@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
@@ -70,23 +71,25 @@ class App extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>
-          Questions Queue
-        </h1>
-        <QuestionFormComponent handleSubmit={this.handleSubmit} />
-        <h2>Pending Questions</h2>
-        <QueueComponent
-          questions={this.state.questions.filter(q => !q.answered)}
-          handleUpvote={this.handleUpvote}
-          handleAnswered={this.handleAnswered}
-          handleDelete={this.handleDelete}
-          />
+      <MuiThemeProvider>
+        <div>
+          <h1>
+            Questions Queue
+          </h1>
+          <QuestionFormComponent handleSubmit={this.handleSubmit} />
+          <h2>Pending Questions</h2>
+          <QueueComponent
+            questions={this.state.questions.filter(q => !q.answered)}
+            handleUpvote={this.handleUpvote}
+            handleAnswered={this.handleAnswered}
+            handleDelete={this.handleDelete}
+            />
           <h2>Answered Questions</h2>
           <QueueComponent questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
-           />
-      </div>
+          />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

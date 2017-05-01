@@ -1,4 +1,6 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class QuestionFormComponent extends React.Component {
   constructor(props) {
@@ -32,8 +34,13 @@ class QuestionFormComponent extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <textarea name="questionText" ref="textBox" onChange={this.handleInputChange} />
-        <input type="submit" value="Submit" />
+        <TextField
+          name="questionText"
+          ref="textBox"
+          multiLine={true}
+          floatingLabelText="Ask a question..."
+          onChange={this.handleInputChange} />
+        <RaisedButton type="submit" label="Submit" />
       </form>
     );
   }

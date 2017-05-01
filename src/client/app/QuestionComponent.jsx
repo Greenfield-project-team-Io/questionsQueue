@@ -1,4 +1,6 @@
 import React from 'react';
+import FlatButton from 'material-ui/FlatButton';
+import { Card, CardActions, CardText } from 'material-ui/Card';
 
 const QuestionComponent = (props) => {
   const question = props.question;
@@ -6,18 +8,24 @@ const QuestionComponent = (props) => {
   if (!question.answered) {
     buttons = (
       <div>
-        <button onClick={() => props.handleUpvote(question)}>Vote</button>
-        <button onClick={() => props.handleAnswered(question)}>Clear</button>
-        <button onClick={() => props.handleDelete(question)}>Delete</button>
+        <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" />
+        <FlatButton onClick={() => props.handleAnswered(question)} label="Clear" />
+        <FlatButton onClick={() => props.handleDelete(question)} label="Delete" />
       </div>
     );
   }
   return (
-    <div>
-      <div>{question.questionText}</div>
-      <div>Votes: {question.votes}</div>
-      <div>Asked on {Date(question.createdAt)}</div>
-      {buttons}
+    <div style={{ margin: '10px' }}>
+      <Card>
+        <CardText>
+          {question.questionText}
+        <div>Votes: {question.votes}</div>
+        <div>Asked on {Date(question.createdAt)}</div>
+        </CardText>
+        <CardActions>
+          {buttons}
+        </CardActions>
+      </Card>
     </div>
   );
 };
