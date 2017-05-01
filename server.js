@@ -56,13 +56,17 @@ app.post('/api/questions', (req, res) => {
 });
 
 app.put('/api/questions', (req, res) => {
-  console.log('PUT req received');
   const id = req.body._id;
   // make edits to stored questions, return new version
   Question.findByIdAndUpdate(id, req.body, { new: true }, (err, data) => {
     if (err) console.error(err);
     res.send(data);
   });
+});
+
+app.delete('/api/questions', (req, res) => {
+  Question.findByIdAndRemove(req.body)
+  .then(() => res.status(202).send());
 });
 
 app.listen(port, () => {
