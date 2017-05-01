@@ -1,6 +1,6 @@
 import React from 'react';
 
-const QuestionComponent = function(props) {
+const QuestionComponent = (props) => {
   const question = props.question;
   return (
     <div>
@@ -8,7 +8,7 @@ const QuestionComponent = function(props) {
       <div>Votes: {question.votes}</div>
       <div>Asked on {Date(question.createdAt)}</div>
       <button onClick={() => props.handleUpvote(question)}>Vote</button>
-      <button>Clear</button>
+      <button onClick={() => props.handleAnswered(question)}>Clear</button>
     </div>
   );
 };
