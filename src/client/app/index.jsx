@@ -28,12 +28,7 @@ class App extends React.Component {
   getQuestions() {
     fetch('/api/questions')
       .then(res => res.json())
-      .then((json) => {
-        this.setState({
-          questions: json,
-        });
-      })
-    ;
+      .then(json => this.setState({ questions: json }));
   }
   handleUpvote(question) {
     const q = question;
@@ -55,9 +50,7 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.getQuestions();
-    this.interval = setInterval(() => {
-      this.getQuestions();
-    }, 2000);
+    this.interval = setInterval(() => this.getQuestions(), 2000);
   }
   render() {
     return (
@@ -76,17 +69,13 @@ class App extends React.Component {
           <QueueComponent questions={this.state.questions.filter(q => q.answered)} />
       </div>
     );
-  }
-  handleSubmit(text) {
-    fetch('/api/questions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        data: text,
-      }),
-    });
+    handleSubmit(text) {
+      fetch('/api/questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      });
+    }
   }
 }
 
