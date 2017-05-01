@@ -12,7 +12,7 @@ const QueueComponent = (props) => {
         />
     ));
   return (
-    <Card className="queue">
+    <Card className="queue" initiallyExpanded={props.expanded}>
       <CardHeader title={props.title}
         actAsExpander={true}
         showExpandableButton={true}

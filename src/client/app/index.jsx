@@ -109,32 +109,17 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
           <AppBar class= "header" title="Question Queue" showMenuIconButton={false} />
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
           <QueueComponent
             title="Pending Questions"
             expanded={true}
-=======
-          <h1>
-            Questions Queue
-          </h1>
-=======
-          <AppBar title="Question Queue" showMenuIconButton={false} />
->>>>>>> Switch to material-ui components and add minor styling
-          <QuestionFormComponent handleSubmit={this.handleSubmit} />
-          <QueueComponent
-<<<<<<< HEAD
->>>>>>> Merge onto dev
-=======
             title="Pending Questions"
->>>>>>> Switch to material-ui components and add minor styling
             questions={this.state.questions.filter(q => !q.answered)}
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
-<<<<<<< HEAD
             handleEdit={this.handleEdit}
             />
           <QueueComponent
@@ -143,18 +128,7 @@ class App extends React.Component {
             questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
             />
-=======
-            />
-          <QueueComponent
-            title="Answered Questions"
-            questions={this.state.questions.filter(q => q.answered)}
-            handleDelete={this.handleDelete}
-<<<<<<< HEAD
           />
->>>>>>> Merge onto dev
-=======
-            />
->>>>>>> Switch to material-ui components and add minor styling
         </div>
       </MuiThemeProvider>
     );
