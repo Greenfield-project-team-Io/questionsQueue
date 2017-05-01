@@ -1,13 +1,14 @@
 import React from 'react';
 
-const QuestionComponent = function(props) {
+const QuestionComponent = (props) => {
+  const question = props.question;
   return (
     <div>
-      <div>{props.question.questionText}</div>
-      <div>Votes: {props.question.votes}</div>
-      <div>Asked on {Date(props.question.createdAt)}</div>
-      <button>Vote</button>
-      <button>Clear</button>
+      <div>{question.questionText}</div>
+      <div>Votes: {question.votes}</div>
+      <div>Asked on {Date(question.createdAt)}</div>
+      <button onClick={() => props.handleUpvote(question)}>Vote</button>
+      <button onClick={() => props.handleAnswered(question)}>Clear</button>
     </div>
   );
 };

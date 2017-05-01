@@ -35,6 +35,8 @@ class App extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
+    this.handleUpvote = this.handleUpvote.bind(this);
+    this.handleAndwered = this.handleAnswered.bind(this);
   }
   getQuestions() {
     fetch('/api/questions')
@@ -47,6 +49,29 @@ class App extends React.Component {
         });
       })
     ;
+  }
+  handleUpvote(question) {
+    question.votes++;
+    this.putRequest(question)
+      .catch((err) => {
+        question.votes -= 1;
+      });
+  }
+  handleAnswered(question) {
+    question.answered = true;
+    this.putRequest(question)
+      .catch((err) => {
+        question.answered = false;
+      });
+  }
+  putRequest(question) {
+    return fetch('/api/questions', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(question),
+    });
   }
   componentDidMount() {
     this.getQuestions();
@@ -62,7 +87,11 @@ class App extends React.Component {
         </h1>
         <QuestionFormComponent handleSubmit={this.handleSubmit} />
         <h2>Pending Questions</h2>
-        <QueueComponent questions={this.state.questions.filter(q => !q.answered)} />
+        <QueueComponent
+          questions={this.state.questions.filter(q => !q.answered)}
+          handleUpvote={this.handleUpvote}
+          handleAndwered={this.handleAnswered}
+          />
           <h2>Answered Questions</h2>
           <QueueComponent questions={this.state.questions.filter(q => q.answered)} />
       </div>
