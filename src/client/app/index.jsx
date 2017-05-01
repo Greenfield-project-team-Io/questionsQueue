@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar'
 
+
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
 // import QuestionModifyComponent from './QuestionModifyComponent.jsx';
@@ -109,15 +110,25 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
+<<<<<<< HEAD
           <AppBar class= "header" title="Question Queue" showMenuIconButton={false} />
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
           <QueueComponent
             title="Pending Questions"
             expanded={true}
+=======
+          <h1>
+            Questions Queue
+          </h1>
+          <QuestionFormComponent handleSubmit={this.handleSubmit} />
+          <h2>Pending Questions</h2>
+          <QueueComponent
+>>>>>>> Merge onto dev
             questions={this.state.questions.filter(q => !q.answered)}
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
+<<<<<<< HEAD
             handleEdit={this.handleEdit}
             />
           <QueueComponent
@@ -126,6 +137,13 @@ class App extends React.Component {
             questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
             />
+=======
+            />
+          <h2>Answered Questions</h2>
+          <QueueComponent questions={this.state.questions.filter(q => q.answered)}
+            handleDelete={this.handleDelete}
+          />
+>>>>>>> Merge onto dev
         </div>
       </MuiThemeProvider>
     );
