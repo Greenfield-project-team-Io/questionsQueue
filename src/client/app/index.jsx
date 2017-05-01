@@ -84,6 +84,7 @@ class App extends React.Component {
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
           <QueueComponent
             title="Pending Questions"
+            expanded={true}
             questions={this.state.questions.filter(q => !q.answered)}
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
@@ -91,6 +92,7 @@ class App extends React.Component {
             />
           <QueueComponent
             title="Answered Questions"
+            expanded={false}
             questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
             />
