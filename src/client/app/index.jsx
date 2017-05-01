@@ -4,49 +4,54 @@ import { render } from 'react-dom';
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
 
+const putRequest = (question) => {
+  return fetch('/api/questions', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(question),
+  });
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: [
-        {
-          id: 1,
-          questionText: 'What is a question?',
-          votes: 0,
-          answered: true,
-          createdAt: Date.now()
-        },
-        {
-          id: 2,
-          questionText: 'Why is the sky blue?',
-          votes: 1,
-          answered: false,
-          createdAt: Date.now()
-        },
-        {
-          id: 3,
-          questionText: 'Why are you building your project in React?',
-          votes: 15,
-          answered: false,
-          createdAt: Date.now()
-        }
-
-      ]
+      questions: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
+    this.handleUpvote = this.handleUpvote.bind(this);
+    this.handleAndwered = this.handleAnswered.bind(this);
   }
   getQuestions() {
     fetch('/api/questions')
-      .then((res) => {
-        return res.json();
-      })
+      .then(res => res.json())
       .then((json) => {
         this.setState({
           questions: json,
         });
       })
     ;
+  }
+  handleUpvote(question) {
+    const q = question;
+    q.votes += 1;
+    putRequest(question)
+      .catch((err) => {
+        console.error(err);
+        q.votes -= 1;
+      });
+  }
+  handleAnswered(question) {
+    const q = question;
+    q.answered = true;
+    putRequest(question)
+      .catch((err) => {
+        console.error(err);
+        q.answered = false;
+      });
   }
   componentDidMount() {
     this.getQuestions();
@@ -62,7 +67,11 @@ class App extends React.Component {
         </h1>
         <QuestionFormComponent handleSubmit={this.handleSubmit} />
         <h2>Pending Questions</h2>
-        <QueueComponent questions={this.state.questions.filter(q => !q.answered)} />
+        <QueueComponent
+          questions={this.state.questions.filter(q => !q.answered)}
+          handleUpvote={this.handleUpvote}
+          handleAnswered={this.handleAnswered}
+          />
           <h2>Answered Questions</h2>
           <QueueComponent questions={this.state.questions.filter(q => q.answered)} />
       </div>
