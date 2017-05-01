@@ -34,11 +34,13 @@ class QuestionFormComponent extends React.Component {
 
   render() {
     return (
-      <Paper>
+      <Paper className="question-form" >
         <form onSubmit={this.handleSubmit}>
           <div>
             <TextField
               name="questionText"
+              className="question-text-form"
+              fullWidth={true}
               ref="textBox"
               multiLine={true}
               floatingLabelText="Ask a question..."
