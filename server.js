@@ -3,11 +3,11 @@
 /*
 [x] set up server
 [x] serve static files
-[] connect to DB
-[] configure middleware & routing
+[x] connect to DB
 [x] handle GET for previously asked questions
 [x] handle POST for new questions
-[] handle PUT for manipulating stored questions
+[x] handle PUT for manipulating stored questions
+[] configure middleware & routing
 */
 
 const express = require('express');
@@ -29,8 +29,7 @@ app.get('/api/questions', (req, res) => {
   Question.find({}, (err, questions) => {
     if (err) {
       console.log(err);
-      res.status(404);
-      res.send(err);
+      res.status(404).send(err);
     } else {
       res.status(200).send(questions);
     }
@@ -48,7 +47,7 @@ app.post('/api/questions', (req, res) => {
   newQuestion.save((err, question) => {
     if (err) {
       console.log('ERRROR!', err);
-      res.status(500).res.send(err);
+      res.status(500).send(err);
     } else {
       res.status(200).send(question);
     }
