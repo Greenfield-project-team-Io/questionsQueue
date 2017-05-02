@@ -1,15 +1,25 @@
 import React from 'react';
+import { Card, CardText, CardHeader, CardTitle } from 'material-ui/Card';
 import QuestionComponent from './QuestionComponent.jsx';
 
-const QueueComponent = function (props) {
-  const questions = props.questions.map(q => {
-    return <QuestionComponent question={q} key={q.id} />;
-  });
+const QueueComponent = (props) => {
+  const questions = props.questions.map(q => (
+      <QuestionComponent question={q} key={q._id}
+        handleUpvote={props.handleUpvote}
+        handleAnswered={props.handleAnswered}
+        handleDelete={props.handleDelete}
+        />
+    ));
   return (
-    <div>
-      This is a queue component
-      {questions}
-    </div>
+    <Card className="queue" initiallyExpanded={props.expanded}>
+      <CardHeader title={props.title}
+        actAsExpander={true}
+        showExpandableButton={true}
+        />
+      <CardText expandable={true}>
+        {questions}
+      </CardText>
+    </Card>
   );
 };
 

@@ -1,14 +1,30 @@
 import React from 'react';
+import FlatButton from 'material-ui/FlatButton';
+import { Card, CardActions, CardText } from 'material-ui/Card';
 
-const QuestionComponent = function(props) {
+const QuestionComponent = (props) => {
+  const question = props.question;
+  let buttons = <div><FlatButton onClick={() => props.handleDelete(question)} label="Delete" /></div>;
+  if (!question.answered) {
+    buttons = (
+      <div>
+        <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" />
+        <FlatButton onClick={() => props.handleAnswered(question)} label="Clear" />
+        <FlatButton onClick={() => props.handleDelete(question)} label="Delete" />
+      </div>
+    );
+  }
   return (
-    <div>
-      <div>{props.question.questionText}</div>
-      <div>Votes: {props.question.votes}</div>
-      <div>Asked on {Date(props.question.createdAt)}</div>
-      <button>Vote</button>
-      <button>Clear</button>
-    </div>
+      <Card className="question">
+        <CardText>
+          {question.questionText}
+        <div>Votes: {question.votes}</div>
+        <div>Asked on {Date(question.createdAt)}</div>
+        </CardText>
+        <CardActions>
+          {buttons}
+        </CardActions>
+      </Card>
   );
 };
 
