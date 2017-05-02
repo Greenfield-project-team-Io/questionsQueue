@@ -46,7 +46,7 @@ class QuestionFormComponent extends React.Component {
               floatingLabelText="Ask a question..."
               onChange={this.handleInputChange} />
             </div>
-          <RaisedButton type="submit" label="Submit" />
+          <RaisedButton type="submit" className="submit-button" label="Submit" />
         </form>
       </Paper>
     );

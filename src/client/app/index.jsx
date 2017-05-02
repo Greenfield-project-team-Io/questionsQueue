@@ -43,7 +43,14 @@ class App extends React.Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text }),
-    });
+    })
+    .then(question => this.setState((prevState) => {
+      prevState.questions.push(question);
+      return {
+        question: prevState.questions,
+      };
+    },
+  ));
   }
   handleUpvote(question) {
     const q = question;
@@ -71,6 +78,7 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id }),
     });
+    this.getQuestions();
   }
   componentDidMount() {
     this.getQuestions();
@@ -80,7 +88,11 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar title="Question Queue" showMenuIconButton={false} />
+          <AppBar
+            title="Question Queue"
+            className="appbar"
+            showMenuIconButton={false}
+            />
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
           <QueueComponent
             title="Pending Questions"

@@ -1,3 +1,9 @@
+.appbar {
+  background-color: #2b9fda !important;
+}
+.help {
+  background-color: #2b9fda !important;
+}
 .question-form {
   margin: 15px 50px !important;
   padding: 10px 15px !important;
