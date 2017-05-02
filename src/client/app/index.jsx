@@ -32,6 +32,7 @@ class App extends React.Component {
     this.handleUpvote = this.handleUpvote.bind(this);
     this.handleAndwered = this.handleAnswered.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
   getQuestions() {
     fetch('/api/questions')
@@ -72,6 +73,16 @@ class App extends React.Component {
       body: JSON.stringify({ _id }),
     });
   }
+  handleEdit(question){
+    const qid = question._id;
+    const q = question;
+    // var oldText = q.questionText;
+    q.questionText = alert();
+    putRequest(question)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
   componentDidMount() {
     this.getQuestions();
     this.interval = setInterval(() => this.getQuestions(), 2000);
@@ -89,6 +100,7 @@ class App extends React.Component {
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
+            handleEdit={this.handleEdit}
             />
           <QueueComponent
             title="Answered Questions"

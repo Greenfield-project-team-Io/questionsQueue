@@ -8,6 +8,7 @@ const QueueComponent = (props) => {
         handleUpvote={props.handleUpvote}
         handleAnswered={props.handleAnswered}
         handleDelete={props.handleDelete}
+        handleEdit={props.handleEdit}
         />
     ));
   return (
