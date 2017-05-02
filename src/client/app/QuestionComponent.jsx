@@ -11,6 +11,7 @@ const QuestionComponent = (props) => {
         <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" />
         <FlatButton onClick={() => props.handleAnswered(question)} label="Clear" />
         <FlatButton onClick={() => props.handleDelete(question)} label="Delete" />
+        <FlatButton onClick={() => props.handleEdit(question)} label="Edit" />
       </div>
     );
   }
@@ -24,6 +25,7 @@ const QuestionComponent = (props) => {
         <CardActions>
           {buttons}
         </CardActions>
+          {editBox}
       </Card>
   );
 };
