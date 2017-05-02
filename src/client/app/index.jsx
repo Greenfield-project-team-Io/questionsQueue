@@ -109,8 +109,11 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-
-          <AppBar class= "header" title="Question Queue" showMenuIconButton={false} />
+          <AppBar
+            title="Question Queue"
+            className="appbar"
+            showMenuIconButton={false}
+            />
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
           <QueueComponent
             title="Pending Questions"
