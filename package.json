@@ -24,10 +24,6 @@
     "express": "^4.15.2",
     "express-session": "^1.15.2",
     "http": "0.0.0",
-<<<<<<< HEAD
-    "jsonwebtoken": "^7.4.0",
-=======
->>>>>>> Merge onto dev
     "material-ui": "^0.18.0",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.6",
