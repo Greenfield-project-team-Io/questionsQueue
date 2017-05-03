@@ -43,3 +43,4 @@ jspm_packages
 
 credentials.js
 .DS_Store
+config.js
