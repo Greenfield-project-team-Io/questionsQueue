@@ -2,11 +2,7 @@
   "name": "questions-queue",
   "version": "0.0.1",
   "description": "This is our greenfield project for out greenfield project at hackreactor",
-<<<<<<< HEAD
   "main": "server.js",
-=======
-  "main": "server/server.js",
->>>>>>> auth in progress
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack -d --watch",
@@ -35,13 +31,6 @@
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-github": "^1.1.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    "passport-local": "^1.0.0",
->>>>>>> require passport
-=======
->>>>>>> auth in progress
     "path": "^0.12.7",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
