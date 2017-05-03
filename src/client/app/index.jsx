@@ -34,6 +34,11 @@ class Main extends React.Component {
     this.state = {
       loggedIn: false,
     };
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> auth in progress
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.handleUpvote = this.handleUpvote.bind(this);
@@ -58,6 +63,10 @@ class Main extends React.Component {
       };
     },
   ));
+<<<<<<< HEAD
+=======
+>>>>>>> auth in progress
+>>>>>>> auth in progress
   }
   login(cb) {
     /*
