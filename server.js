@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // "use-strict";
 
 /*
@@ -10,11 +11,24 @@
 [] configure middleware & routing
 */
 
+=======
+>>>>>>> require passport
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Question = require('./src/db/db-schema');
 const morgan = require('morgan');
+// 
+// const passport = require('passport');
+// const GithubStrategy = require('passport-github').Strategy;
+// const config = require('./config');
+// //
+// // passport.use(new GithubStrategy({
+// //   clientID: config.githubID,
+// //   clientSecret: config.githubSecret,
+// //   callbackURL: 'http://localhost:8080/auth/callback',
+// // },
+// // (accessToken, refreshToken, profile, done) => done(null, profile)));
 
 const port = process.env.PORT || 8080;
 const app = express();
