@@ -37,7 +37,7 @@ class App extends React.Component {
     this.handleEdit = this.handleEdit.bind(this);
   }
   getQuestions() {
-    fetch('/api/questions')
+    fetch('/api/questions', { credentials: 'include' })
       .then(res => res.json())
       .then(json => this.setState({ questions: json }));
   }
