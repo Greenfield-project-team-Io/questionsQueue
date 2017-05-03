@@ -35,6 +35,14 @@ class App extends React.Component {
   }
   getQuestions() {
     fetch('/api/questions')
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          this.props.logout(() => {});
+          return null;
+        }
+      })
       .then(res => res.json())
       .then(json => this.setState({ questions: json }));
   }
