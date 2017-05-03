@@ -34,7 +34,7 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
   getQuestions() {
-    fetch('/api/questions')
+    fetch('/api/questions', { credentials: 'include' })
       .then(res => res.json())
       .then(json => this.setState({ questions: json }));
   }
