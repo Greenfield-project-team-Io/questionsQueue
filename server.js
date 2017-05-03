@@ -23,7 +23,7 @@ function ensureAuth(req, res, next) {
   console.log('Authenticated: ', req.isAuthenticated());
   console.log('Headers: ', req.headers);
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/auth/github');
+  res.status(403).send();
   return 'appease airbnb';
 }
 
