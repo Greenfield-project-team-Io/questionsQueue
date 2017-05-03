@@ -2,116 +2,79 @@ import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import AppBar from 'material-ui/AppBar'
+import AppBar from 'material-ui/AppBar';
 
-import QueueComponent from './QueueComponent.jsx';
-import QuestionFormComponent from './QuestionFormComponent.jsx';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from 'react-router-dom';
 
-const putRequest = (question) =>
-  fetch('/api/questions', {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(question),
-  });
+import AuthExample from './Routes.jsx';
+import LoginComponent from './Login.jsx';
+import App from './app.jsx';
 
-class App extends React.Component {
+// const fakeAuth = {
+//   loggedIn: false,
+//   authenticate(cb) {
+//     this.loggedIn = true;
+//     setTimeout(cb, 100);
+//   },
+//   signout(cb) {
+//     this.loggedIn = false;
+//     setTimeout(cb, 100);
+//   },
+// };
+
+class Main extends React.Component {
   constructor(props) {
     super(props);
-
-    // This fixes an error of 'Unknown prop `onTouchTap`...' when using
-    // expandable cards.
-    injectTapEventPlugin();
-
     this.state = {
-      questions: [],
+      loggedIn: false,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.getQuestions = this.getQuestions.bind(this);
-    this.handleUpvote = this.handleUpvote.bind(this);
-    this.handleAndwered = this.handleAnswered.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
   }
-  getQuestions() {
-    fetch('/api/questions')
-      .then(res => res.json())
-      .then(json => this.setState({ questions: json }));
-  }
-  handleSubmit(text) {
-    fetch('/api/questions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
-    })
-    .then(question => this.setState((prevState) => {
-      prevState.questions.push(question);
-      return {
-        question: prevState.questions,
-      };
-    },
-  ));
-  }
-  handleUpvote(question) {
-    const q = question;
-    q.votes += 1;
-    putRequest(question)
-      .catch((err) => {
-        console.error(err);
-        q.votes -= 1;
-      });
-  }
-  handleAnswered(question) {
-    const q = question;
-    q.answered = true;
-    putRequest(question)
-      .catch((err) => {
-        console.error(err);
-        q.answered = false;
-      });
-  }
-  handleDelete(question) {
-    const _id = question._id;
-    console.log(_id);
-    fetch('/api/questions', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ _id }),
+  login(cb) {
+    /*
+     *setState is async, so place callback in an anonymous function?
+     */
+    this.setState({
+      loggedIn: true,
     });
-    this.getQuestions();
+    cb();
   }
-  componentDidMount() {
-    this.getQuestions();
-    this.interval = setInterval(() => this.getQuestions(), 2000);
+  logout(cb) {
+    this.setState({
+      loggedIn: false,
+    });
+    cb();
   }
   render() {
     return (
-      <MuiThemeProvider>
+      <Router>
         <div>
-          <AppBar
-            title="Question Queue"
-            className="appbar"
-            showMenuIconButton={false}
+          <Route exact path="/" render={() => (
+            this.state.loggedIn ? (
+              <Redirect to="/questions" />
+            ) : (
+              <Redirect push to="/login" />
+            )
+          )} />
+          <Route path="/questions"
+            component={App}
+            logout={this.logout.bind(this)}
             />
-          <QuestionFormComponent handleSubmit={this.handleSubmit} />
-          <QueueComponent
-            title="Pending Questions"
-            expanded={true}
-            questions={this.state.questions.filter(q => !q.answered)}
-            handleUpvote={this.handleUpvote}
-            handleAnswered={this.handleAnswered}
-            handleDelete={this.handleDelete}
-            />
-          <QueueComponent
-            title="Answered Questions"
-            expanded={false}
-            questions={this.state.questions.filter(q => q.answered)}
-            handleDelete={this.handleDelete}
-            />
-        </div>
-      </MuiThemeProvider>
+          <Route path="/login" render={() => (
+            <LoginComponent
+              name="Leo"
+              login={this.login.bind(this)}
+              loggedIn={this.state.loggedIn} />
+          )}/>
+          </div>
+      </Router>
     );
   }
 }
 
-render(<App />, document.getElementById('app'));
+render(<Main />, document.getElementById('app'));
