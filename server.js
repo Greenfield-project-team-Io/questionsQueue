@@ -1,42 +1,31 @@
-// "use-strict";
-
-/*
-[x] set up server
-[x] serve static files
-[x] connect to DB
-[x] handle GET for previously asked questions
-[x] handle POST for new questions
-[x] handle PUT for manipulating stored questions
-[] configure middleware & routing
-*/
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Question = require('./src/db/db-schema');
 const morgan = require('morgan');
-//
-// const passport = require('passport');
-// const GithubStrategy = require('passport-github').Strategy;
-// const config = require('./config');
-// //
-// // passport.use(new GithubStrategy({
-// //   clientID: config.githubID,
-// //   clientSecret: config.githubSecret,
-// //   callbackURL: 'http://localhost:8080/auth/callback',
-// // },
-// // (accessToken, refreshToken, profile, done) => done(null, profile)));
 
-// const passport = require('passport');
-// const GithubStrategy = require('passport-github').Strategy;
-// const config = require('./config');
-// //
-// // passport.use(new GithubStrategy({
-// //   clientID: config.githubID,
-// //   clientSecret: config.githubSecret,
-// //   callbackURL: 'http://localhost:8080/auth/callback',
-// // },
-// // (accessToken, refreshToken, profile, done) => done(null, profile)));
+const passport = require('passport');
+const GithubStrategy = require('passport-github').Strategy;
+const config = require('./config');
+const session = require('express-session');
+
+passport.use(new GithubStrategy({
+  clientID: config.githubID,
+  clientSecret: config.githubSecret,
+  callbackURL: '/auth/github/callback' },
+  (accessToken, refreshToken, profile, done) => done(null, profile)));
+
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
+// ^^^^^^ this may be the place to check user in db ^^^^^
+
+function ensureAuth(req, res, next) {
+  console.log('Authenticated: ', req.isAuthenticated());
+  console.log('Headers: ', req.headers);
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/auth/github');
+  return 'appease airbnb';
+}
 
 const port = process.env.PORT || 8080;
 const app = express();
