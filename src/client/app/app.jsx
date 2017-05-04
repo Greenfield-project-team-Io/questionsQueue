@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar'
+import FlatButton from 'material-ui/FlatButton';
 
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
@@ -40,7 +41,7 @@ class App extends React.Component {
     fetch('/api/questions', { credentials: 'include' })
       .then((res) => {
         if (res.status === 200 || res.status === 304) {
-          props.login(() => {});
+          // props.login(() => {});
           return res.json();
         } else if (res.status === 403) {
           this.props.logout(() => {});
@@ -109,7 +110,13 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar title="Question Queue" showMenuIconButton={false} />
+          <AppBar title="Question Queue" showMenuIconButton={false}
+            iconElementRight={
+              <FlatButton label="Log Out"
+                href="/auth/logout"
+                />
+            }
+            />
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
           <QueueComponent
             title="Pending Questions"
