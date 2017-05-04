@@ -18,10 +18,14 @@ const QuestionComponent = (props) => {
 
     );
   }
+  // console.log(question.questionText);
+  var lineBreak = question.questionText.replace('/n', '<br />');
   return (
       <Card className="question">
         <CardText>
-          {question.questionText}
+        {lineBreak.split('\n').map((question, idx) => {
+          return <span key={idx}>{question}<br/></span>
+        })}
         <div>Votes: {question.votes}</div>
         <div>Asked on {Date(question.createdAt)}</div>
         </CardText>
