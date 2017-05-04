@@ -1,16 +1,29 @@
-const routs = require('express').Router();
+const routes = require('express').Router();
 const controllers = require('./controllers');
 const passport = require('passport');
+const User = require('./db/user');
 
-routs.get('/auth/github', passport.authenticate('github'));
-routs.get('/auth/github/callback',
+routes.get('/auth/github', passport.authenticate('github'));
+routes.get('/auth/github/callback',
             passport.authenticate('github', { failureRedirect: '/auth/github' }),
-            (req, res) => res.redirect('/'));
+            (req, res) => {
+              User.findOne({ username: req.user.username })
+                .then((user) => {
+                  res.cookie('username', user.username);
+                  res.cookie('role', user.role);
+                  res.cookie('loggedIn', '1');
+                  res.redirect('/');
+                })
+                .catch(
+                  // user does not exist
+                  // react accordingly
+                );
+            });
 
-routs.route('/api/questions')
+routes.route('/api/questions')
   .get(controllers.getQuestions)
   .post(controllers.postQuestion)
   .put(controllers.updateQuestion)
   .delete(controllers.deleteQuestion);
 
-module.exports = routs;
+module.exports = routes;
