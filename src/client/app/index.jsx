@@ -6,6 +6,7 @@ import AppBar from 'material-ui/AppBar'
 
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
+// import QuestionModifyComponent from './QuestionModifyComponent.jsx';
 
 const putRequest = (question) =>
   fetch('/api/questions', {
@@ -26,12 +27,14 @@ class App extends React.Component {
 
     this.state = {
       questions: [],
+      edition: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.handleUpvote = this.handleUpvote.bind(this);
     this.handleAndwered = this.handleAnswered.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
   getQuestions() {
     fetch('/api/questions')
@@ -72,13 +75,31 @@ class App extends React.Component {
   }
   handleDelete(question) {
     const _id = question._id;
-    console.log(_id);
+    // console.log(_id);
     fetch('/api/questions', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id }),
     });
     this.getQuestions();
+  }
+  handleEdit(question) {
+    const q = question;
+    const preText = q.questionText;
+    q.questionText = prompt('Edit Your Question Here..', preText);
+    putRequest(question)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  handleEdit(question) {
+    const q = question;
+    const preText = q.questionText;
+    q.questionText = prompt('Edit Your Question Here..', preText);
+    putRequest(question)
+      .catch((err) => {
+        console.error(err);
+      });
   }
   componentDidMount() {
     this.getQuestions();
@@ -88,11 +109,7 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar
-            title="Question Queue"
-            className="appbar"
-            showMenuIconButton={false}
-            />
+          <AppBar class= "header" title="Question Queue" showMenuIconButton={false} />
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
           <QueueComponent
             title="Pending Questions"
@@ -101,6 +118,7 @@ class App extends React.Component {
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
+            handleEdit={this.handleEdit}
             />
           <QueueComponent
             title="Answered Questions"

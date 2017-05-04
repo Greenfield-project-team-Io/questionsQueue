@@ -5,6 +5,7 @@ const questionSchema = new mongoose.Schema({
   questionText: String,
   votes: Number,
   answered: Boolean,
+  // time: { type: Date, default: Date.now },
   // timestamps: { createdAt: 'created_at' },
 });
 

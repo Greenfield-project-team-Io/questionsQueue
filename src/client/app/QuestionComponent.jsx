@@ -1,6 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardText } from 'material-ui/Card';
+// import QuestionModifyComponent from './QuestionModifyComponent.jsx';
 
 const QuestionComponent = (props) => {
   const question = props.question;
@@ -11,7 +12,9 @@ const QuestionComponent = (props) => {
         <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" />
         <FlatButton onClick={() => props.handleAnswered(question)} label="Clear" />
         <FlatButton onClick={() => props.handleDelete(question)} label="Delete" />
+        <FlatButton onClick={() => props.handleEdit(question)} label="Edit" />
       </div>
+
     );
   }
   return (
@@ -19,7 +22,7 @@ const QuestionComponent = (props) => {
         <CardText>
           {question.questionText}
         <div>Votes: {question.votes}</div>
-        <div>Asked on {Date(question.createdAt)}</div>
+        <div>Asked on { Date("createdAt": 'created_at') }</div>
         </CardText>
         <CardActions>
           {buttons}

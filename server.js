@@ -42,6 +42,7 @@ app.post('/api/questions', (req, res) => {
     questionText: req.body.text,
     votes: 0,
     answered: false,
+    // time : { type: Date, default: Date.now },
   });
 
   newQuestion.save((err, question) => {
