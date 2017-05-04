@@ -33,6 +33,7 @@ class App extends React.Component {
     this.handleUpvote = this.handleUpvote.bind(this);
     this.handleAndwered = this.handleAnswered.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
   getQuestions() {
     const props = this.props;
@@ -88,6 +89,18 @@ class App extends React.Component {
       body: JSON.stringify({ _id }),
     });
   }
+  handleEdit(question) {
+    const q = question;
+    const preText = q.questionText;
+    const editedText = prompt('Edit Your Question Here..', preText);
+    if (editedText !== null && editedText!== "" && preText !== editedText) {
+      q.questionText = editedText;
+      putRequest(question)
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }
   componentDidMount() {
     this.getQuestions();
     this.interval = setInterval(() => this.getQuestions(), 2000);
@@ -105,12 +118,14 @@ class App extends React.Component {
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
+            handleEdit={this.handleEdit}
             />
           <QueueComponent
             title="Answered Questions"
             expanded={false}
             questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
+
             />
         </div>
       </MuiThemeProvider>
