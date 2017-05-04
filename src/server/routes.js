@@ -14,10 +14,10 @@ routes.get('/auth/github/callback',
                     res.cookie('loggedIn', '1');
                     res.redirect('/');
                   })
-                  .catch(
-                    // user does not exist
-                    // react accordingly
-                  );
+                  .catch(() => {
+                    req.logout();
+                    res.redirect('/');
+                  });
               });
 
 routes.get('/auth/logout', (req, res) => {
