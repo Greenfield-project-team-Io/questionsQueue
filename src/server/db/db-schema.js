@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const questionSchema = new mongoose.Schema({
   questionText: String,
+  codeSnippet: String,
   votes: Number,
   answered: Boolean,
   // timestamps: { createdAt: 'created_at' },

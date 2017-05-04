@@ -22,6 +22,7 @@ const QuestionComponent = (props) => {
       <Card className="question">
         <CardText>
           {question.questionText}
+        <div>Code: {question.codeSnippet}</div>
         <div>Votes: {question.votes}</div>
         <div>Asked on {Date(question.createdAt)}</div>
         </CardText>
