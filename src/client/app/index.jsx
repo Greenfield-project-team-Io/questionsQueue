@@ -34,39 +34,6 @@ class Main extends React.Component {
     this.state = {
       loggedIn: false,
     };
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> auth in progress
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.getQuestions = this.getQuestions.bind(this);
-    this.handleUpvote = this.handleUpvote.bind(this);
-    this.handleAndwered = this.handleAnswered.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-  }
-  getQuestions() {
-    fetch('/api/questions', { credentials: 'include' })
-      .then(res => res.json())
-      .then(json => this.setState({ questions: json }));
-  }
-  handleSubmit(text) {
-    fetch('/api/questions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
-    })
-    .then(question => this.setState((prevState) => {
-      prevState.questions.push(question);
-      return {
-        question: prevState.questions,
-      };
-    },
-  ));
-<<<<<<< HEAD
-=======
->>>>>>> auth in progress
->>>>>>> auth in progress
   }
   login(cb) {
     /*
