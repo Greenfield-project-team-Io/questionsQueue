@@ -9,6 +9,7 @@ import QuestionFormComponent from './QuestionFormComponent.jsx';
 
 const putRequest = (question) =>
   fetch('/api/questions', {
+    credentials: 'include',
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -81,6 +82,7 @@ class App extends React.Component {
     const _id = question._id;
     console.log(_id);
     fetch('/api/questions', {
+      credentials: 'include',
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id }),
