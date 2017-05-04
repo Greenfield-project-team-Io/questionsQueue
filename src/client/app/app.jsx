@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar'
 
 import QueueComponent from './QueueComponent.jsx';
@@ -34,26 +34,20 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
   getQuestions() {
-    const props = this.props;
-    fetch('/api/questions', { credentials: 'include' })
+    fetch('/api/questions', {})
       .then(res => {
-        if (res.status === 200 || res.status === 304) {
-          props.login(() => {});
+        if (res.status === 200) {
           return res.json();
-        } else if (res.status === 403) {
-          props.logout(() => {});
+        } else {
+          this.props.logout(() => {});
           return null;
         }
       })
-      .then(json => this.setState({ questions: json }))
-      .catch(err => {
-        console.error(err);
-        // props.logout(() => {});
-      });
+      .then(res => res.json())
+      .then(json => this.setState({ questions: json }));
   }
   handleSubmit(text) {
     fetch('/api/questions', {
-      credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text }),
