@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardText } from 'material-ui/Card';
 // import QuestionModifyComponent from './QuestionModifyComponent.jsx';
 
+
 const QuestionComponent = (props) => {
   const question = props.question;
   let buttons = <div><FlatButton onClick={() => props.handleDelete(question)} label="Delete" /></div>;
@@ -22,7 +23,7 @@ const QuestionComponent = (props) => {
         <CardText>
           {question.questionText}
         <div>Votes: {question.votes}</div>
-        <div>Asked on { Date("createdAt": 'created_at') }</div>
+        <div>Asked on {Date(question.createdAt)}</div>
         </CardText>
         <CardActions>
           {buttons}
