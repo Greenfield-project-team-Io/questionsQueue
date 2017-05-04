@@ -51,7 +51,6 @@ class Main extends React.Component {
       loggedIn: false,
     });
     this.getQuestions();
-  }
     cb();
   }
   render() {
