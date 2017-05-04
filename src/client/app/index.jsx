@@ -92,6 +92,15 @@ class App extends React.Component {
         console.error(err);
       });
   }
+  handleEdit(question) {
+    const q = question;
+    const preText = q.questionText;
+    q.questionText = prompt('Edit Your Question Here..', preText);
+    putRequest(question)
+      .catch((err) => {
+        console.error(err);
+      });
+  }
   componentDidMount() {
     this.getQuestions();
     this.interval = setInterval(() => this.getQuestions(), 2000);
