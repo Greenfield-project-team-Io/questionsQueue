@@ -26,6 +26,7 @@ const QuestionComponent = (props) => {
         {lineBreak.split('\n').map((question, idx) => {
           return <span key={idx}>{question}<br/></span>
         })}
+        <div>Code: {question.codeSnippet}</div>
         <div>Votes: {question.votes}</div>
         <div>Asked on {Date(question.createdAt)}</div>
         </CardText>

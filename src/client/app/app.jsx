@@ -2,9 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
-import AppBar from 'material-ui/AppBar'
-import FlatButton from 'material-ui/FlatButton';
 
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
 
@@ -54,12 +54,12 @@ class App extends React.Component {
         // props.logout(() => {});
       });
   }
-  handleSubmit(text) {
+  handleSubmit(text, code = null) {
     fetch('/api/questions', {
       credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, code }),
     });
   }
   handleUpvote(question) {
@@ -132,7 +132,6 @@ class App extends React.Component {
             expanded={false}
             questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
-
             />
         </div>
       </MuiThemeProvider>

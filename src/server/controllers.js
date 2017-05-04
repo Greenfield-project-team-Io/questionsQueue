@@ -10,6 +10,7 @@ exports.getQuestions = (req, res) => {
 exports.postQuestion = (req, res) => {
   const newQuestion = new Question({
     questionText: req.body.text,
+    codeSnippet: req.body.code,
     votes: 0,
     answered: false,
   });

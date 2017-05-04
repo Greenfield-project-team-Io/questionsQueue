@@ -9,7 +9,7 @@ import {
   Route,
   Link,
   Redirect,
-  withRouter
+  withRouter,
 } from 'react-router-dom';
 
 import AuthExample from './Routes.jsx';
