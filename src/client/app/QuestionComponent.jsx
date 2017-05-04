@@ -22,7 +22,7 @@ const QuestionComponent = (props) => {
         <CardText>
           {question.questionText}
         <div>Votes: {question.votes}</div>
-        <div>Asked on {Date(question.createdAt)}</div>
+        <div>Asked on { Date("createdAt": 'created_at') }</div>
         </CardText>
         <CardActions>
           {buttons}
