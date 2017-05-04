@@ -9,7 +9,7 @@ routes.get('/auth/github/callback',
 
 routes.get('/auth/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.clearCookie('loggedIn').redirect('/');
 });
 
 routes.route('/api/questions')
