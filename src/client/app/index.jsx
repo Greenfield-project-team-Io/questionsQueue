@@ -32,7 +32,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: document.cookie === 'loggedIn=1',
+      loggedIn: document.cookie.includes('loggedIn=1'),
     };
     this.logout = this.logout.bind(this);
     this.login = this.login.bind(this);
