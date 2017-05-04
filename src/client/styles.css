@@ -2,6 +2,9 @@
   margin: 15px 50px !important;
   padding: 10px 15px !important;
 }
+.header{ // this class is from form component
+  color: 	#25a2d0;
+}
 .queston-text-box {
   width: 100% !important;
 }

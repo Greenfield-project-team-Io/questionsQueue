@@ -6,6 +6,7 @@ import AppBar from 'material-ui/AppBar'
 
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
+// import QuestionModifyComponent from './QuestionModifyComponent.jsx';
 
 const putRequest = (question) =>
   fetch('/api/questions', {
@@ -26,6 +27,7 @@ class App extends React.Component {
 
     this.state = {
       questions: [],
+      edition: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
@@ -66,18 +68,17 @@ class App extends React.Component {
   }
   handleDelete(question) {
     const _id = question._id;
-    console.log(_id);
+    // console.log(_id);
     fetch('/api/questions', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id }),
     });
   }
-  handleEdit(question){
-    const qid = question._id;
+  handleEdit(question) {
     const q = question;
-    // var oldText = q.questionText;
-    q.questionText = alert();
+    const preText = q.questionText;
+    q.questionText = prompt('Edit Your Question Here..', preText);
     putRequest(question)
       .catch((err) => {
         console.error(err);
@@ -91,7 +92,7 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar title="Question Queue" showMenuIconButton={false} />
+          <AppBar class= "header" title="Question Queue" showMenuIconButton={false} />
           <QuestionFormComponent handleSubmit={this.handleSubmit} />
           <QueueComponent
             title="Pending Questions"

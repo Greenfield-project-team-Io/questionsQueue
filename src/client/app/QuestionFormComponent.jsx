@@ -29,7 +29,6 @@ class QuestionFormComponent extends React.Component {
     this.setState({
       questionText: '',
     });
-    this.refs.textBox.value = '';
   }
 
   render() {
@@ -41,12 +40,12 @@ class QuestionFormComponent extends React.Component {
               name="questionText"
               className="question-text-form"
               fullWidth={true}
-              ref="textBox"
+              value={this.state.questionText}
               multiLine={true}
               floatingLabelText="Ask a question..."
               onChange={this.handleInputChange} />
             </div>
-          <RaisedButton type="submit" label="Submit" />
+          <RaisedButton type="submit" disabled={!this.state.questionText} label="Submit" />
         </form>
       </Paper>
     );
