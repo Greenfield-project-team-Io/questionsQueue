@@ -5,7 +5,7 @@ const passport = require('passport');
 routs.get('/auth/github', passport.authenticate('github'));
 routs.get('/auth/github/callback',
             passport.authenticate('github', { failureRedirect: '/auth/github' }),
-            (req, res) => res.redirect('/'));
+            (req, res) => res.cookie('loggedIn', '1').redirect('/'));
 
 routs.route('/api/questions')
   .get(controllers.getQuestions)
