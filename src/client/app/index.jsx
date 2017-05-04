@@ -32,8 +32,10 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
     };
+    this.logout = this.logout.bind(this);
+    this.login = this.login.bind(this);
   }
   login(cb) {
     /*
@@ -51,6 +53,7 @@ class Main extends React.Component {
     cb();
   }
   render() {
+    console.log(this.state.loggedIn);
     return (
       <Router>
         <div>
@@ -62,13 +65,20 @@ class Main extends React.Component {
             )
           )} />
           <Route path="/questions"
-            component={App}
-            logout={this.logout.bind(this)}
+            render={ () => (
+              this.state.loggedIn ? (
+                <App logout={this.logout}
+                  login={this.login}
+                />
+              ) : (
+                <Redirect to="/" />
+              )
+            )
+          }
             />
           <Route path="/login" render={() => (
             <LoginComponent
-              name="Leo"
-              login={this.login.bind(this)}
+              login={this.login}
               loggedIn={this.state.loggedIn} />
           )}/>
           </div>
@@ -77,4 +87,5 @@ class Main extends React.Component {
   }
 }
 
+injectTapEventPlugin();
 render(<Main />, document.getElementById('app'));
