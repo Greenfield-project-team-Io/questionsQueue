@@ -24,6 +24,7 @@ const QuestionComponent = (props) => {
   const editBtn = <FlatButton onClick={() => props.handleEdit(question)} label="Edit" />;
 
   let buttons;
+  console.log(props.user.role)
   if (question.answered) {
     if (props.user.role === 'admin') {
       buttons = [deleteBtn];

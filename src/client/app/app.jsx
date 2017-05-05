@@ -25,7 +25,9 @@ class App extends React.Component {
     const user = {};
 
     document.cookie.split(';').forEach((str) => {
-      const [k, v] = str.split('=');
+      console.log(str);
+      const [k, v] = str.split('=').map(s => s.trim());
+      console.log(k)
       if (k === 'username' || k === 'role') {
         user[k] = v;
       }
@@ -33,8 +35,9 @@ class App extends React.Component {
 
     this.state = {
       questions: [],
-      user,
+      user: user,
     };
+    console.log(this.state.user)
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.handleUpvote = this.handleUpvote.bind(this);
