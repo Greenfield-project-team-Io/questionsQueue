@@ -48,18 +48,20 @@ class App extends React.Component {
           return null;
         }
       })
-      .then(json => this.setState({ questions: json }))
+      .then(json => {
+        this.setState({ questions: json });
+      })
       .catch(err => {
-        console.error(err);
+        console.error('error', JSON.stringify(err));
         // props.logout(() => {});
       });
   }
-  handleSubmit(text, code = null) {
+  handleSubmit(text, code = null, tags = []) {
     fetch('/api/questions', {
       credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, code }),
+      body: JSON.stringify({ text, code, tags }),
     });
   }
   handleUpvote(question) {
@@ -70,6 +72,7 @@ class App extends React.Component {
         console.error(err);
         q.votes -= 1;
       });
+    this.getQuestions();
   }
   handleAnswered(question) {
     const q = question;
@@ -89,6 +92,7 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id }),
     });
+    this.getQuestions();
   }
   handleEdit(question) {
     const q = question;
@@ -105,6 +109,9 @@ class App extends React.Component {
   componentDidMount() {
     this.getQuestions();
     this.interval = setInterval(() => this.getQuestions(), 2000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
   render() {
     return (
