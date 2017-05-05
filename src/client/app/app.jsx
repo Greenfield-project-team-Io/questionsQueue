@@ -22,12 +22,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    // This fixes an error of 'Unknown prop `onTouchTap`...' when using
-    // expandable cards.
-    // injectTapEventPlugin();
+
+    // Parse cookie to set up a user object with user's name and role
+    const user = {};
+    document.cookie.split(';').forEach((str) => {
+      const [k, v] = str.split('=').map(s => s.trim());
+      if (k === 'username' || k === 'role') {
+        user[k] = v;
+      }
+    });
 
     this.state = {
       questions: [],
+      user,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
@@ -61,12 +68,18 @@ class App extends React.Component {
       credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, code, tags }),
+      body: JSON.stringify({
+        text,
+        code,
+        tags,
+        username: this.state.user.username,
+      }),
     });
   }
   handleUpvote(question) {
     const q = question;
     q.votes += 1;
+    q.usersVoted.push(this.state.user.username);
     putRequest(question)
       .catch((err) => {
         console.error(err);
@@ -133,12 +146,14 @@ class App extends React.Component {
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
             handleEdit={this.handleEdit}
+            user={this.state.user}
             />
           <QueueComponent
             title="Answered Questions"
             expanded={false}
             questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
+            user={this.state.user}
             />
         </div>
       </MuiThemeProvider>

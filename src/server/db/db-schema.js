@@ -8,6 +8,8 @@ const questionSchema = new mongoose.Schema({
   answered: Boolean,
   createdAt: Date,
   tags: Array,
+  username: { type: String, required: true },
+  usersVoted: { type: [String], default: [] },
 });
 
 // exporting the questionQueue schema with questionQueue instance
