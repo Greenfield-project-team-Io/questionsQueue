@@ -42,6 +42,7 @@ class App extends React.Component {
     this.handleAndwered = this.handleAnswered.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
+    this.handleTagDelete = this.handleTagDelete.bind(this);
   }
   getQuestions() {
     const props = this.props;
@@ -119,6 +120,13 @@ class App extends React.Component {
         });
     }
   }
+  handleTagDelete(tag, question) {
+    const q = question;
+    const idx = question.tags.indexOf(tag);
+    q.tags.splice(idx, 1);
+    putRequest(q)
+      .catch(err => console.error(err));
+  }
   componentDidMount() {
     this.getQuestions();
     this.interval = setInterval(() => this.getQuestions(), 2000);
@@ -137,7 +145,10 @@ class App extends React.Component {
                 />
             }
             />
-          <QuestionFormComponent handleSubmit={this.handleSubmit} />
+          <QuestionFormComponent
+            handleSubmit={this.handleSubmit}
+            user={this.state.user}
+            />
           <QueueComponent
             title="Pending Questions"
             expanded={true}
@@ -146,6 +157,7 @@ class App extends React.Component {
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
             handleEdit={this.handleEdit}
+            handleTagDelete={this.handleTagDelete}
             user={this.state.user}
             />
           <QueueComponent
@@ -153,6 +165,7 @@ class App extends React.Component {
             expanded={false}
             questions={this.state.questions.filter(q => q.answered)}
             handleDelete={this.handleDelete}
+            handleTagDelete={this.handleTagDelete}
             user={this.state.user}
             />
         </div>

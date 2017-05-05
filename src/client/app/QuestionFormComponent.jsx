@@ -44,8 +44,12 @@ class QuestionFormComponent extends React.Component {
     if (appliedTags.includes(tag)) return;
     this.setState({ pendingTag: tag })
     if (!this.state.allTags.includes(tag)) {
-      this.openDialog();
-      return;
+      if (this.props.user.role === 'admin') {
+        this.openDialog();
+        return;
+      } else {
+        return;
+      }
     }
     this.confirmNewTag();
   }
