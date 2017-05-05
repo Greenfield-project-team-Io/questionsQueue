@@ -5,9 +5,22 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import AutoComplete from 'material-ui/AutoComplete';
+// import Syntax from 'syntax';
 import TagArray from './TagArray.jsx';
 
 const allTags = ['Node', 'Express', 'React', 'Angular', 'Closures', 'Promises'];
+
+// const syntax = new Syntax({
+//   language: 'javascript',
+//   cssPrefix: '',
+// });
+//
+// syntax.richtext(
+//     '/* sample comment */\n' +
+//     '={function foo}= (bar, quux) {\n' +
+//     '    return 42 =(1)=\n' +
+//     '}\n',
+// );
 
 class QuestionFormComponent extends React.Component {
   constructor(props) {
@@ -40,7 +53,7 @@ class QuestionFormComponent extends React.Component {
   handleTagAdd(tag) {
     const appliedTags = this.state.appliedTags;
     if (appliedTags.includes(tag)) return;
-    this.setState({ pendingTag: tag })
+    this.setState({ pendingTag: tag });
     if (!this.state.allTags.includes(tag)) {
       this.openDialog();
       return;
