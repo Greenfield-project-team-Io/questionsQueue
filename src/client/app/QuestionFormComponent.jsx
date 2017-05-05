@@ -4,10 +4,8 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-
 import AutoComplete from 'material-ui/AutoComplete';
 import TagArray from './TagArray.jsx';
-
 
 const allTags = ['Node', 'Express', 'React', 'Angular', 'Closures', 'Promises'];
 
