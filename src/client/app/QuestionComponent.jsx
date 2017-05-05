@@ -23,7 +23,7 @@ const QuestionComponent = (props) => {
     user.username === question.username ||
       user.role === 'admin'
       ? deleteBtn : null,
-    user.roll === 'admin'
+    user.role === 'admin'
       ? answerBtn : null,
   ];
 
