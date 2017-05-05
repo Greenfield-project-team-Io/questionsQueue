@@ -18,6 +18,7 @@ exports.postQuestion = (req, res) => {
     answered: false,
     createdAt: new Date(),
     tags: req.body.tags,
+    username: req.body.username,
   });
   newQuestion.markModified('tags');
   newQuestion.save((err, question) => {
