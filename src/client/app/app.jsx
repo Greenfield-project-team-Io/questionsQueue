@@ -22,12 +22,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const user = {};
 
+    // Parse cookie to set up a user object with user's name and role
+    const user = {};
     document.cookie.split(';').forEach((str) => {
-      console.log(str);
       const [k, v] = str.split('=').map(s => s.trim());
-      console.log(k)
       if (k === 'username' || k === 'role') {
         user[k] = v;
       }
@@ -35,7 +34,7 @@ class App extends React.Component {
 
     this.state = {
       questions: [],
-      user: user,
+      user,
     };
     console.log(this.state.user)
     this.handleSubmit = this.handleSubmit.bind(this);
