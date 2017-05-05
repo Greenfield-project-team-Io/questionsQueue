@@ -35,7 +35,7 @@ const QuestionComponent = (props) => {
         ))}
         <div>Votes: {question.votes}</div>
         <div>Asked on {question.createdAt}</div>
-        <div>Tags: <TagArray tags={question.tags} /></div>
+        <div>Tags: <TagArray tags={question.tags} handleTagDelete={props.handleTagDelete} /></div>
         </CardText>
         <CardActions>
           {buttons}

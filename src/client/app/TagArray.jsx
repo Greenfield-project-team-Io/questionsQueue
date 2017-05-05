@@ -14,6 +14,9 @@ const TagArray = (props) => {
   };
 
   function renderChip(tag, idx) {
+    const handleTagDelete = props.question
+      ? props.handleTagDelete(tag, props.question)
+      : props.handleTagDelete(tag, null);
     return (
       <Chip
         key={ idx }
