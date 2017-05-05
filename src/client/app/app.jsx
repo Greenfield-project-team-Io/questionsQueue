@@ -137,7 +137,10 @@ class App extends React.Component {
                 />
             }
             />
-          <QuestionFormComponent handleSubmit={this.handleSubmit} />
+          <QuestionFormComponent
+            handleSubmit={this.handleSubmit}
+            user={this.state.user}
+            />
           <QueueComponent
             title="Pending Questions"
             expanded={true}
