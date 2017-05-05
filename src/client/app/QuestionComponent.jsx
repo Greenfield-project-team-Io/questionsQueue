@@ -28,6 +28,7 @@ const QuestionComponent = (props) => {
         })}
         <div>Code: {question.codeSnippet}</div>
         <div>Votes: {question.votes}</div>
+        <div>Tags: {question.tags.join(', ')}</div>
         <div>Asked on {question.createdAt}</div>
         </CardText>
         <CardActions>

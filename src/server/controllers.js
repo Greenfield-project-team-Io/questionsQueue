@@ -8,12 +8,14 @@ exports.getQuestions = (req, res) => {
 };
 
 exports.postQuestion = (req, res) => {
+  console.log(req.body);
   const newQuestion = new Question({
     questionText: req.body.text,
     codeSnippet: req.body.code,
     votes: 0,
     answered: false,
     createdAt: new Date(),
+    tags: req.body.tags,
   });
   newQuestion.save((err, question) => {
     if (err) res.status(500).send(err);

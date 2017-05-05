@@ -7,6 +7,7 @@ const questionSchema = new mongoose.Schema({
   votes: Number,
   answered: Boolean,
   createdAt: Date,
+  tags: Array,
 });
 
 // exporting the questionQueue schema with questionQueue instance

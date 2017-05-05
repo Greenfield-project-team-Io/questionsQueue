@@ -57,7 +57,9 @@ class QuestionFormComponent extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.handleSubmit(this.state.questionText, this.state.codeSnippet);
+    this.props.handleSubmit(this.state.questionText,
+                            this.state.codeSnippet,
+                            this.state.appliedTags.map(tag => tag.label));
     this.setState({
       questionText: '',
       codeSnippet: '',
