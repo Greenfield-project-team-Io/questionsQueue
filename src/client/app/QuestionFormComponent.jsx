@@ -56,7 +56,7 @@ class QuestionFormComponent extends React.Component {
     const allTags = this.state.allTags;
     if (!allTags.includes(tag)) allTags.push(tag);
     this.setState({ appliedTags, allTags });
-    this.refs.tagBar.setState({ searchText: ''});
+    this.refs.tagBar.setState({ searchText: '' });
   }
 
   handleTagDelete(tag) {
@@ -80,7 +80,7 @@ class QuestionFormComponent extends React.Component {
       codeSnippet: '',
       appliedTags: [],
     });
-    this.refs.tagBar.setState({ searchText: ''});
+    this.refs.tagBar.setState({ searchText: '' });
   }
 
   render() {
