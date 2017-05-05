@@ -12,6 +12,7 @@ exports.postQuestion = (req, res) => {
     questionText: req.body.text,
     votes: 0,
     answered: false,
+    username: req.body.username,
   });
   newQuestion.save((err, question) => {
     if (err) res.status(500).send(err);

@@ -17,11 +17,11 @@ const QuestionComponent = (props) => {
     !question.answered
       // && !question.usersVoted.includes(user.username)
       ? upVoteBtn : null,
-    // user.username === question.username ||
-    user.role === 'admin'
+    user.username === question.username ||
+      user.role === 'admin'
       ? editBtn : null,
-    // user.username === question.username ||
-    user.role === 'admin'
+    user.username === question.username ||
+      user.role === 'admin'
       ? deleteBtn : null,
     user.roll === 'admin'
       ? answerBtn : null,

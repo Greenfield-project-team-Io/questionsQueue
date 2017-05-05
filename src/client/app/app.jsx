@@ -36,7 +36,6 @@ class App extends React.Component {
       questions: [],
       user,
     };
-    console.log(this.state.user)
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.handleUpvote = this.handleUpvote.bind(this);
@@ -67,7 +66,7 @@ class App extends React.Component {
       credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, username: this.state.user.username }),
     });
   }
   handleUpvote(question) {

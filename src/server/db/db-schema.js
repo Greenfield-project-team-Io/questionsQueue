@@ -6,7 +6,7 @@ const questionSchema = new mongoose.Schema({
   votes: Number,
   answered: Boolean,
   username: { type: String, required: true },
-  usersVoted: [String],
+  usersVoted: { type: [String], default: [] },
   // timestamps: { createdAt: 'created_at' },
 });
 
