@@ -15,12 +15,12 @@ const TagArray = (props) => {
 
   function renderChip(tag, idx) {
     const handleTagDelete = props.question
-      ? props.handleTagDelete(tag, props.question)
-      : props.handleTagDelete(tag, null);
+      ? props.handleTagDelete.bind(null, tag, props.question)
+      : props.handleTagDelete.bind(null, tag);
     return (
       <Chip
         key={ idx }
-        onRequestDelete={props.handleTagDelete ? () => props.handleTagDelete(tag) : null}
+        onRequestDelete={props.handleTagDelete ? () => handleTagDelete() : null}
         style={ styles.chip }
        >
         { tag }
