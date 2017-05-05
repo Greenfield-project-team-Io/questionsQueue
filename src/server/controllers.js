@@ -13,6 +13,7 @@ exports.postQuestion = (req, res) => {
     codeSnippet: req.body.code,
     votes: 0,
     answered: false,
+    createdAt: new Date(),
   });
   newQuestion.save((err, question) => {
     if (err) res.status(500).send(err);

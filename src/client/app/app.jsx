@@ -106,6 +106,9 @@ class App extends React.Component {
     this.getQuestions();
     this.interval = setInterval(() => this.getQuestions(), 2000);
   }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
   render() {
     return (
       <MuiThemeProvider>
