@@ -14,13 +14,14 @@ const TagArray = (props) => {
   };
 
   function renderChip(tag, idx) {
-    const handleTagDelete = props.question
-      ? (t) => props.handleTagDelete.call(null, t, props.question)
-      : props.handleTagDelete;
     return (
       <Chip
         key={ idx }
-        onRequestDelete={props.handleTagDelete ? () => handleTagDelete(tag) : null}
+        onRequestDelete={
+          props.handleTagDelete
+          ? () => props.handleTagDelete(tag, props.question)
+          : null
+        }
         style={ styles.chip }
        >
         { tag }
