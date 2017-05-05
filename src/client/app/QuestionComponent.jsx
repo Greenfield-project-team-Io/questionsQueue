@@ -27,6 +27,17 @@ const QuestionComponent = (props) => {
       ? answerBtn : null,
   ];
 
+  const tags = user.username === question.username || user.role === 'admin' ? (
+    <TagArray tags={question.tags}
+      question={question}
+      handleTagDelete={props.handleTagDelete}
+      />
+  ) : (
+    <TagArray tags={question.tags}
+      question={question}
+      />
+  );
+
   return (
       <Card className="question">
         <CardText>
@@ -35,9 +46,7 @@ const QuestionComponent = (props) => {
         ))}
         <div>Votes: {question.votes}</div>
         <div>Asked on {question.createdAt}</div>
-        <div>Tags: <TagArray tags={question.tags}
-          question={question}
-          handleTagDelete={props.handleTagDelete} /></div>
+        <div>Tags: {tags}</div>
         </CardText>
         <CardActions>
           {buttons}
