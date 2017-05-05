@@ -15,7 +15,7 @@ const QuestionComponent = (props) => {
 
   const buttons = [
     !question.answered
-      // && !question.usersVoted.includes(user.username)
+      && !question.usersVoted.includes(user.username)
       ? upVoteBtn : null,
     user.username === question.username ||
       user.role === 'admin'

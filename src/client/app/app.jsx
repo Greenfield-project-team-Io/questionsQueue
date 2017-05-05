@@ -72,6 +72,7 @@ class App extends React.Component {
   handleUpvote(question) {
     const q = question;
     q.votes += 1;
+    q.usersVoted.push(this.state.user.username);
     putRequest(question)
       .catch((err) => {
         console.error(err);
