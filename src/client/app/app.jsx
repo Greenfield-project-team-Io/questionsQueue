@@ -48,9 +48,11 @@ class App extends React.Component {
           return null;
         }
       })
-      .then(json => this.setState({ questions: json }))
+      .then(json => {
+        this.setState({ questions: json });
+      })
       .catch(err => {
-        console.error(err);
+        console.error('error', JSON.stringify(err));
         // props.logout(() => {});
       });
   }

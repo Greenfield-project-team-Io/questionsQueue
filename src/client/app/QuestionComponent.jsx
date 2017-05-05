@@ -1,8 +1,8 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardText } from 'material-ui/Card';
+import TagArray from './TagArray.jsx';
 // import QuestionModifyComponent from './QuestionModifyComponent.jsx';
-
 
 const QuestionComponent = (props) => {
   const question = props.question;
@@ -19,7 +19,7 @@ const QuestionComponent = (props) => {
     );
   }
   // console.log(question.questionText);
-  var lineBreak = question.questionText.replace('/n', '<br />');
+  const lineBreak = question.questionText.replace('/n', '<br />');
   return (
       <Card className="question">
         <CardText>
@@ -28,8 +28,8 @@ const QuestionComponent = (props) => {
         })}
         <div>Code: {question.codeSnippet}</div>
         <div>Votes: {question.votes}</div>
-        <div>Tags: {question.tags.join(', ')}</div>
         <div>Asked on {question.createdAt}</div>
+        <div>Tags: <TagArray tags={question.tags} /></div>
         </CardText>
         <CardActions>
           {buttons}
@@ -38,4 +38,5 @@ const QuestionComponent = (props) => {
   );
 };
 
+// <div>Tags: <TagArray tags={question.tags} /></div>
 export default QuestionComponent;

@@ -3,7 +3,9 @@ const Question = require('./db/db-schema');
 exports.getQuestions = (req, res) => {
   Question.find({}, (err, questions) => {
     if (err) res.status(404).send(err);
-    else res.status(200).send(questions);
+    else {
+      res.status(200).send(questions);
+    }
   });
 };
 
@@ -17,6 +19,7 @@ exports.postQuestion = (req, res) => {
     createdAt: new Date(),
     tags: req.body.tags,
   });
+  newQuestion.markModified('tags');
   newQuestion.save((err, question) => {
     if (err) res.status(500).send(err);
     else res.status(200).send(question);

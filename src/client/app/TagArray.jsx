@@ -1,25 +1,26 @@
 import React from 'react';
 import Chip from 'material-ui/Chip';
 
-const styles = {
-  chip: {
-    margin: 4,
-  },
-  wrapper: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-};
 
 const TagArray = (props) => {
-  function renderChip(tag) {
+  const styles = {
+    chip: {
+      margin: 4,
+    },
+    wrapper: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+  };
+
+  function renderChip(tag, idx) {
     return (
       <Chip
-        key={ tag.key }
-        onRequestDelete={ () => props.handleTagDelete(tag.key) }
+        key={ idx }
+        onRequestDelete={props.handleTagDelete ? () => props.handleTagDelete(tag) : null}
         style={ styles.chip }
        >
-        { tag.label }
+        { tag }
       </Chip>
     );
   }
