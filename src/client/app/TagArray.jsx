@@ -17,7 +17,11 @@ const TagArray = (props) => {
     return (
       <Chip
         key={ idx }
-        onRequestDelete={props.handleTagDelete ? () => props.handleTagDelete(tag) : null}
+        onRequestDelete={
+          props.handleTagDelete
+          ? () => props.handleTagDelete(tag, props.question)
+          : null
+        }
         style={ styles.chip }
        >
         { tag }
