@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import QueueComponent from './QueueComponent.jsx';
@@ -21,7 +20,6 @@ const putRequest = (question) =>
 class App extends React.Component {
   constructor(props) {
     super(props);
-
 
     // Parse cookie to set up a user object with user's name and role
     const user = {};
@@ -133,6 +131,11 @@ class App extends React.Component {
   }
   componentWillUnmount() {
     clearInterval(this.interval);
+  }
+  handleRequestClose() {
+    this.setState({
+      open: false,
+    });
   }
   render() {
     return (
