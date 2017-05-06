@@ -10,10 +10,13 @@ const QuestionComponent = (props) => {
   const user = props.user;
 
   const upVoteBtn = question.usersVoted.includes(user.username) ? (
-    <FlatButton onClick={() => props.handleDownvote(question)} label="Vote" />
+    <FlatButton onClick={() => props.handleDownvote(question)}
+      label="Voted"
+      style={{ backgroundColor: '#e0e0e0' }}
+      />
   ) : (
     <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" />
-  ) ;
+  );
   const answerBtn = <FlatButton onClick={() => props.handleAnswered(question)} label="Clear" />;
   const deleteBtn = <FlatButton onClick={() => props.handleDelete(question)} label="Delete" />;
   const editBtn = <FlatButton onClick={() => props.handleEdit(question)} label="Edit" />;
@@ -59,7 +62,9 @@ const QuestionComponent = (props) => {
         <div className="tag-bar">{tags}</div>
         <div className="question-info-bar">
           <span className="votes-span">Votes: {question.votes}</span>
-          <span className="timestamp-span">Asked on {`${months[date.getMonth()]} ${date.getDate()}`}</span>
+          <span className="timestamp-span">
+            Asked on {`${months[date.getMonth()]} ${date.getDate()}`}
+            </span>
         </div>
         </CardText>
         <CardActions>
