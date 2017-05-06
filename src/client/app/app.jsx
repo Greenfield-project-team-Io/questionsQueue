@@ -73,6 +73,13 @@ class App extends React.Component {
         tags,
         username: this.state.user.username,
       }),
+    })
+    .then((res) => res.json())
+    .then(data => {
+      this.setState((prevState) => {
+        prevState.questions.push(data);
+        return { questions: prevState.questions };
+      });
     });
   }
   handleUpvote(question) {
