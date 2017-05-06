@@ -16,7 +16,6 @@ exports.postQuestion = (req, res) => {
     codeSnippet: req.body.code,
     votes: 0,
     answered: false,
-    createdAt: new Date(),
     tags: req.body.tags,
     username: req.body.username,
   });

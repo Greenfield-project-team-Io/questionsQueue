@@ -7,6 +7,7 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
+import SearchBar from './SearchBar.jsx';
 
 
 const putRequest = (question) =>
@@ -42,6 +43,8 @@ class App extends React.Component {
     this.state = {
       questions: [],
       user,
+      sortBy: 'createdAt',
+      reverseSort: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
@@ -50,6 +53,9 @@ class App extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleTagDelete = this.handleTagDelete.bind(this);
+    this.handleSortByChange = this.handleSortByChange.bind(this);
+    this.sortMethod = this.sortMethod.bind(this);
+    this.handleReverse = this.handleReverse.bind(this);
   }
   getQuestions() {
     const props = this.props;
@@ -63,14 +69,11 @@ class App extends React.Component {
           return null;
         }
       })
-      .then((json) => {
-        this.setState({ questions: json });
-      })
-      .catch((err) => {
-        console.error('error', JSON.stringify(err));
-        // props.logout(() => {});
-      });
+      .then(questions => this.setState({ questions }))
+      .catch(err => console.error('error', JSON.stringify(err)));
   }
+
+  // Methods to update questions
   handleSubmit(text, code = null, tags = []) {
     fetch('/api/questions', {
       credentials: 'include',
@@ -148,7 +151,7 @@ class App extends React.Component {
     const q = question;
     const preText = q.questionText;
     const editedText = prompt('Edit Your Question Here..', preText);
-    if (editedText !== null && editedText!== "" && preText !== editedText) {
+    if (editedText !== null && editedText!== '' && preText !== editedText) {
       q.questionText = editedText;
       putRequest(question)
         .then(res => res.json())
@@ -163,6 +166,7 @@ class App extends React.Component {
           console.error(err);
         });
     }
+    console.log(typeof question.createdAt);
   }
   handleTagDelete(tag, question) {
     const q = question;
@@ -179,6 +183,24 @@ class App extends React.Component {
       })
       .catch(err => console.error(err));
   }
+
+  // Search / Sort Methods
+  handleSortByChange(sortBy) {
+    this.setState({ sortBy });
+  }
+  sortMethod(a, b) {
+    let order = a[this.state.sortBy] - b[this.state.sortBy];
+    if (this.state.sortBy === 'votes') order = -order;
+    if (this.state.reverseSort) order = -order;
+    return order;
+  }
+  handleReverse() {
+    const reverseSort = !this.state.reverseSort;
+    this.setState({ reverseSort });
+  }
+
+
+  // Utility
   componentDidMount() {
     this.getQuestions();
     this.interval = setInterval(() => this.getQuestions(), 2000);
@@ -206,10 +228,15 @@ class App extends React.Component {
             handleSubmit={this.handleSubmit}
             user={this.state.user}
             />
+          <SearchBar
+            sortBy={this.state.sortBy}
+            handleSortByChange={this.handleSortByChange}
+            handleReverse={this.handleReverse}
+            />
           <QueueComponent
             title="Pending Questions"
             expanded={true}
-            questions={this.state.questions.filter(q => !q.answered)}
+            questions={this.state.questions.filter(q => !q.answered).sort(this.sortMethod)}
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
             handleDelete={this.handleDelete}
