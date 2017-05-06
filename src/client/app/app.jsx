@@ -143,6 +143,14 @@ class App extends React.Component {
     if (editedText !== null && editedText!== "" && preText !== editedText) {
       q.questionText = editedText;
       putRequest(question)
+        .then(res => res.json())
+        .then((data) => {
+          this.setState((prevState) => {
+            const questions = prevState.questions;
+            updateQuestions(questions, data);
+            return { questions };
+          });
+        })
         .catch((err) => {
           console.error(err);
         });
