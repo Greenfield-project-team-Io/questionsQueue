@@ -5,21 +5,6 @@ import { grey200 } from 'material-ui/styles/colors';
 import TagArray from './TagArray.jsx';
 // import QuestionModifyComponent from './QuestionModifyComponent.jsx';
 
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
 const QuestionComponent = (props) => {
   const question = props.question;
   const user = props.user;
@@ -80,6 +65,21 @@ const QuestionComponent = (props) => {
       </Card>
   );
 };
+
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 // <div>Tags: <TagArray tags={question.tags} /></div>
 export default QuestionComponent;

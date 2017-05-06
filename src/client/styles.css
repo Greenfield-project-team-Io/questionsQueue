@@ -45,7 +45,6 @@ body {
   margin-bottom: 10px !important;
   font-size: 1em !important;
   font-family: monospace !important;
-
 }
 .question-info-bar {
   color: #757575 !important;
@@ -59,12 +58,10 @@ body {
 }
 .votes-span {
   font-size: 1.2em !important;
-
 }
 .timestamp-span {
   float: right !important;
 }
-
 .favIcon{
   height: 10px !important;
 }
