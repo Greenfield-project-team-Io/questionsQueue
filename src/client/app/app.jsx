@@ -87,6 +87,15 @@ class App extends React.Component {
     q.votes += 1;
     q.usersVoted.push(this.state.user.username);
     putRequest(question)
+      .then(res => res.json())
+      .then(data => {
+        this.setState(prevState => {
+          const questions = prevState.questions;
+          const idx = questions.findIndex(i => i._id === data._id);
+          questions[idx] = data;
+          return { questions };
+        })
+      })
       .catch((err) => {
         console.error(err);
         q.votes -= 1;
