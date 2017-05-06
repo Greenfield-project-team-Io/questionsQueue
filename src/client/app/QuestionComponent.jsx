@@ -5,6 +5,21 @@ import { grey200 } from 'material-ui/styles/colors';
 import TagArray from './TagArray.jsx';
 // import QuestionModifyComponent from './QuestionModifyComponent.jsx';
 
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 const QuestionComponent = (props) => {
   const question = props.question;
   const user = props.user;
@@ -38,7 +53,7 @@ const QuestionComponent = (props) => {
       question={question}
       />
   );
-
+  const date = new Date(question.createdAt);
   return (
       <Card className="question">
         <CardText className="question-card-content">
@@ -56,7 +71,7 @@ const QuestionComponent = (props) => {
         <div className="tag-bar">{tags}</div>
         <div className="question-info-bar">
           <span className="votes-span">Votes: {question.votes}</span>
-          <span className="timestamp-span">Asked on {question.createdAt}</span>
+          <span className="timestamp-span">Asked on {`${months[date.getMonth()]} ${date.getDate()}`}</span>
         </div>
         </CardText>
         <CardActions>
