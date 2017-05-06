@@ -44,9 +44,10 @@ const QuestionComponent = (props) => {
         {question.questionText.split('\n').map((line, idx) => (
           <span key={idx}>{line}<br/></span>
         ))}
-        {question.codeSnippet.split('\n').map((line, idx) => (
+        {question.codeSnippet ?
+          question.codeSnippet.split('\n').map((line, idx) => (
           <span key={idx}>{line}<br/></span>
-        ))}
+        )) : null}
         <div>Votes: {question.votes}</div>
         <div>Asked on {question.createdAt}</div>
         <div>Tags: {tags}</div>

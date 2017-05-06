@@ -6,7 +6,7 @@ const newUsers = [{
   cohort: 'hrnyc-7',
 },
 {
-  username: 'DHamberlin',
+  username: 'jaffrepaul',
   role: 'admin',
   cohort: 'hrnyc-7',
 }];
