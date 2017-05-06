@@ -9,14 +9,17 @@ const QuestionComponent = (props) => {
   const question = props.question;
   const user = props.user;
 
-  const upVoteBtn = <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" />;
+  const upVoteBtn = question.usersVoted.includes(user.username) ? (
+    <FlatButton onClick={() => props.handleDownvote(question)} label="Vote" />
+  ) : (
+    <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" />
+  ) ;
   const answerBtn = <FlatButton onClick={() => props.handleAnswered(question)} label="Clear" />;
   const deleteBtn = <FlatButton onClick={() => props.handleDelete(question)} label="Delete" />;
   const editBtn = <FlatButton onClick={() => props.handleEdit(question)} label="Edit" />;
 
   const buttons = [
     !question.answered
-      && !question.usersVoted.includes(user.username)
       ? upVoteBtn : null,
     user.username === question.username ||
       user.role === 'admin'

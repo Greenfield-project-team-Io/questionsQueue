@@ -6,6 +6,7 @@ const QueueComponent = (props) => {
   const questions = props.questions.map(q => (
       <QuestionComponent question={q} key={q._id}
         handleUpvote={props.handleUpvote}
+        handleDownvote={props.handleDownvote}
         handleAnswered={props.handleAnswered}
         handleDelete={props.handleDelete}
         handleEdit={props.handleEdit}
