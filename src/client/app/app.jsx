@@ -129,7 +129,6 @@ class App extends React.Component {
   }
   handleDelete(question) {
     const _id = question._id;
-    console.log(_id);
     fetch('/api/questions', {
       credentials: 'include',
       method: 'DELETE',
