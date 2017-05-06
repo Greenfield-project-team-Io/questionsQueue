@@ -1,3 +1,4 @@
+import { remove } from 'lodash';
 import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -6,6 +7,7 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
+
 
 const putRequest = (question) =>
   fetch('/api/questions', {
@@ -16,6 +18,13 @@ const putRequest = (question) =>
     },
     body: JSON.stringify(question),
   });
+
+// Update an array of questions to include a modified question.
+// Mutates array. Does not return a value.
+const updateQuestions = (questions, newQ) => {
+  const idx = questions.findIndex(i => i._id === newQ._id);
+  questions[idx] = newQ;
+};
 
 class App extends React.Component {
   constructor(props) {
@@ -37,7 +46,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.handleUpvote = this.handleUpvote.bind(this);
-    this.handleAndwered = this.handleAnswered.bind(this);
+    this.handleAnswered = this.handleAnswered.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleTagDelete = this.handleTagDelete.bind(this);
@@ -54,10 +63,10 @@ class App extends React.Component {
           return null;
         }
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ questions: json });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('error', JSON.stringify(err));
         // props.logout(() => {});
       });
@@ -73,6 +82,13 @@ class App extends React.Component {
         tags,
         username: this.state.user.username,
       }),
+    })
+    .then(res => res.json())
+    .then((data) => {
+      this.setState((prevState) => {
+        prevState.questions.push(data);
+        return { questions: prevState.questions };
+      });
     });
   }
   handleUpvote(question) {
@@ -80,6 +96,14 @@ class App extends React.Component {
     q.votes += 1;
     q.usersVoted.push(this.state.user.username);
     putRequest(question)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState((prevState) => {
+          const questions = prevState.questions;
+          updateQuestions(questions, data);
+          return { questions };
+        });
+      })
       .catch((err) => {
         console.error(err);
         q.votes -= 1;
@@ -90,6 +114,14 @@ class App extends React.Component {
     const q = question;
     q.answered = true;
     putRequest(question)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState((prevState) => {
+          const questions = prevState.questions;
+          updateQuestions(questions, data);
+          return { questions };
+        });
+      })
       .catch((err) => {
         console.error(err);
         q.answered = false;
@@ -97,12 +129,18 @@ class App extends React.Component {
   }
   handleDelete(question) {
     const _id = question._id;
-    console.log(_id);
     fetch('/api/questions', {
       credentials: 'include',
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id }),
+    })
+    .then(() => {
+      this.setState((prevState) => {
+        const questions = prevState.questions;
+        remove(questions, (q) => q._id === _id);
+        return { questions };
+      });
     });
     this.getQuestions();
   }
@@ -113,6 +151,14 @@ class App extends React.Component {
     if (editedText !== null && editedText!== "" && preText !== editedText) {
       q.questionText = editedText;
       putRequest(question)
+        .then(res => res.json())
+        .then((data) => {
+          this.setState((prevState) => {
+            const questions = prevState.questions;
+            updateQuestions(questions, data);
+            return { questions };
+          });
+        })
         .catch((err) => {
           console.error(err);
         });
@@ -120,9 +166,17 @@ class App extends React.Component {
   }
   handleTagDelete(tag, question) {
     const q = question;
-    const idx = question.tags.indexOf(tag);
-    q.tags.splice(idx, 1);
+    remove(q.tags, t => t === tag);
     putRequest(q)
+      .then((res) => {
+        if (res.status === 200) {
+          this.setState((prevState) => {
+            const questions = prevState.questions;
+            updateQuestions(questions, q);
+            return { questions };
+          });
+        }
+      })
       .catch(err => console.error(err));
   }
   componentDidMount() {
