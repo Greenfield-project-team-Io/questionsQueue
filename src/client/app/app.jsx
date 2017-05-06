@@ -224,34 +224,36 @@ class App extends React.Component {
                 />
             }
             />
-          <QuestionFormComponent
-            handleSubmit={this.handleSubmit}
-            user={this.state.user}
-            />
-          <SearchBar
-            sortBy={this.state.sortBy}
-            handleSortByChange={this.handleSortByChange}
-            handleReverse={this.handleReverse}
-            />
-          <QueueComponent
-            title="Pending Questions"
-            expanded={true}
-            questions={this.state.questions.filter(q => !q.answered).sort(this.sortMethod)}
-            handleUpvote={this.handleUpvote}
-            handleAnswered={this.handleAnswered}
-            handleDelete={this.handleDelete}
-            handleEdit={this.handleEdit}
-            handleTagDelete={this.handleTagDelete}
-            user={this.state.user}
-            />
-          <QueueComponent
-            title="Answered Questions"
-            expanded={false}
-            questions={this.state.questions.filter(q => q.answered)}
-            handleDelete={this.handleDelete}
-            handleTagDelete={this.handleTagDelete}
-            user={this.state.user}
-            />
+          <div className="app-body">
+            <QuestionFormComponent
+              handleSubmit={this.handleSubmit}
+              user={this.state.user}
+              />
+            <SearchBar
+              sortBy={this.state.sortBy}
+              handleSortByChange={this.handleSortByChange}
+              handleReverse={this.handleReverse}
+              />
+            <QueueComponent
+              title="Pending Questions"
+              expanded={true}
+              questions={this.state.questions.filter(q => !q.answered).sort(this.sortMethod)}
+              handleUpvote={this.handleUpvote}
+              handleAnswered={this.handleAnswered}
+              handleDelete={this.handleDelete}
+              handleEdit={this.handleEdit}
+              handleTagDelete={this.handleTagDelete}
+              user={this.state.user}
+              />
+            <QueueComponent
+              title="Answered Questions"
+              expanded={false}
+              questions={this.state.questions.filter(q => q.answered)}
+              handleDelete={this.handleDelete}
+              handleTagDelete={this.handleTagDelete}
+              user={this.state.user}
+              />
+          </div>
         </div>
       </MuiThemeProvider>
     );
