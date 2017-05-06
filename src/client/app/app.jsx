@@ -17,6 +17,13 @@ const putRequest = (question) =>
     body: JSON.stringify(question),
   });
 
+// Update an array of questions to include a modified question.
+// Mutates array. Does not return a value.
+const updateQuestions = (questions, newQ) => {
+  const idx = questions.findIndex(i => i._id === newQ._id);
+  questions[idx] = newQ;
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +44,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.handleUpvote = this.handleUpvote.bind(this);
-    this.handleAndwered = this.handleAnswered.bind(this);
+    this.handleAnswered = this.handleAnswered.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleTagDelete = this.handleTagDelete.bind(this);
@@ -54,10 +61,10 @@ class App extends React.Component {
           return null;
         }
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ questions: json });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('error', JSON.stringify(err));
         // props.logout(() => {});
       });
@@ -74,8 +81,8 @@ class App extends React.Component {
         username: this.state.user.username,
       }),
     })
-    .then((res) => res.json())
-    .then(data => {
+    .then(res => res.json())
+    .then((data) => {
       this.setState((prevState) => {
         prevState.questions.push(data);
         return { questions: prevState.questions };
@@ -88,13 +95,12 @@ class App extends React.Component {
     q.usersVoted.push(this.state.user.username);
     putRequest(question)
       .then(res => res.json())
-      .then(data => {
-        this.setState(prevState => {
+      .then((data) => {
+        this.setState((prevState) => {
           const questions = prevState.questions;
-          const idx = questions.findIndex(i => i._id === data._id);
-          questions[idx] = data;
+          updateQuestions(questions, data);
           return { questions };
-        })
+        });
       })
       .catch((err) => {
         console.error(err);
@@ -106,6 +112,14 @@ class App extends React.Component {
     const q = question;
     q.answered = true;
     putRequest(question)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState((prevState) => {
+          const questions = prevState.questions;
+          updateQuestions(questions, data);
+          return { questions };
+        });
+      })
       .catch((err) => {
         console.error(err);
         q.answered = false;
