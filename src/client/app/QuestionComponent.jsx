@@ -1,6 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardText } from 'material-ui/Card';
+import { grey200 } from 'material-ui/styles/colors';
 import TagArray from './TagArray.jsx';
 // import QuestionModifyComponent from './QuestionModifyComponent.jsx';
 
@@ -40,17 +41,23 @@ const QuestionComponent = (props) => {
 
   return (
       <Card className="question">
-        <CardText>
-        {question.questionText.split('\n').map((line, idx) => (
-          <span key={idx}>{line}<br/></span>
-        ))}
-        {question.codeSnippet ?
-          question.codeSnippet.split('\n').map((line, idx) => (
-          <span key={idx}>{line}<br/></span>
-        )) : null}
-        <div>Votes: {question.votes}</div>
-        <div>Asked on {question.createdAt}</div>
-        <div>Tags: {tags}</div>
+        <CardText className="question-card-content">
+        <div className="question-body">
+          {question.questionText.split('\n').map((line, idx) => (
+            <span key={idx}>{line}<br/></span>
+          ))}
+        </div>
+        {question.codeSnippet ? (
+          <div className="question-snippet">
+          {question.codeSnippet.split('\n').map((line, idx) => (
+            <span key={idx}>{line}<br/></span>
+          ))}
+          </div>) : null}
+        <div className="tag-bar">{tags}</div>
+        <div className="question-info-bar">
+          <span className="votes-span">Votes: {question.votes}</span>
+          <span className="timestamp-span">Asked on {question.createdAt}</span>
+        </div>
         </CardText>
         <CardActions>
           {buttons}
