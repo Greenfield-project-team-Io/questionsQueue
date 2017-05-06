@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardText, CardHeader, CardTitle, CardActions } from 'material-ui/Card';
+import { Toolbar, ToolbarGroup, ToolbarTitle, ToolbarSeparator } from 'material-ui/Toolbar';
+import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
@@ -9,38 +10,36 @@ import TextField from 'material-ui/TextField';
 
 // const handleChange = (event, index, value) => this.setState({ value });
 const SearchBar = props => (
-  <Card className="searchbar">
-    <div>
-      <CardHeader title= "Sort by" />
-      <CardActions>
-        <span>Sort by </span>
+    <Paper className="searchToolBar">
         <DropDownMenu
+          className="search-dropdown"
           value={props.sortBy}
           onChange={(e, idx, val) => props.handleSortByChange(val)} >
-          <MenuItem value="createdAt" primaryText="Time" />
-          <MenuItem value="votes" primaryText="Votes" />
+          <MenuItem value="createdAt" primaryText="Sort by Date"/>
+          <MenuItem value="votes" primaryText="Sort by Votes" />
         </DropDownMenu>
         <IconButton
+          className="searchButton"
           tooltip="Reverse"
           onTouchTap={props.handleReverse}>
-          <FontIcon className="material-icons">swap_vert</FontIcon>
+          <FontIcon className="material-icons">
+            {props.reverseSort ? 'arrow_upward' : 'arrow_downward'}
+          </FontIcon>
         </IconButton>
         <TextField
           className="search-field"
           value={props.searchText}
           floatingLabelText="Seach questions for..."
           onChange={props.handleSearchChange} />
-        <span>in</span>
         <DropDownMenu
+          className="search-dropdown"
           value={props.filterBy}
           onChange={(e, idx, val) => props.handleFilterByChange(val)} >
-          <MenuItem value="all" primaryText = "All fields" />
-          <MenuItem value="questionText" primaryText="Question text" />
-          <MenuItem value="codeSnippet" primaryText="Code snippet" />
-          <MenuItem value="tags" primaryText="Tag" />
+          <MenuItem value="all" primaryText = "in all fields" />
+          <MenuItem value="questionText" primaryText="in question text" />
+          <MenuItem value="codeSnippet" primaryText="in code snippets" />
+          <MenuItem value="tags" primaryText="in tags" />
         </DropDownMenu>
-      </CardActions>
-    </div>
-  </Card>
+  </Paper>
 );
 export default SearchBar;

@@ -253,6 +253,7 @@ class App extends React.Component {
           <SearchBar
             sortBy={this.state.sortBy}
             handleSortByChange={this.handleSortByChange}
+            reverseSort={this.state.reverseSort}
             handleReverse={this.handleReverse}
             searchText={this.state.searchText}
             handleSearchChange={this.handleSearchChange}
@@ -262,8 +263,7 @@ class App extends React.Component {
           <QueueComponent
             title="Pending Questions"
             expanded={true}
-            questions={this.state.questions.filter(q => !q.answered)
-                                           .filter(this.filterMethod)
+            questions={this.state.questions.filter(q => !q.answered && this.filterMethod(q))
                                            .sort(this.sortMethod)}
             handleUpvote={this.handleUpvote}
             handleAnswered={this.handleAnswered}
@@ -275,8 +275,7 @@ class App extends React.Component {
           <QueueComponent
             title="Answered Questions"
             expanded={false}
-            questions={this.state.questions.filter(q => q.answered)
-                                           .filter(this.filterMethod)
+            questions={this.state.questions.filter(q => q.answered && this.filterMethod(q))
                                            .sort(this.sortMethod)}
             handleDelete={this.handleDelete}
             handleTagDelete={this.handleTagDelete}
