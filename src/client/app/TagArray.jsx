@@ -22,6 +22,7 @@ const TagArray = (props) => {
           ? () => props.handleTagDelete(tag, props.question)
           : null
         }
+        className="tag-chip"
         style={ styles.chip }
        >
         { tag }

@@ -49,6 +49,7 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
     this.handleUpvote = this.handleUpvote.bind(this);
+    this.handleDownvote = this.handleDownvote.bind(this);
     this.handleAnswered = this.handleAnswered.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
@@ -94,11 +95,15 @@ class App extends React.Component {
       });
     });
   }
-  handleUpvote(question) {
+  handleVote(question, n) {
     const q = question;
-    q.votes += 1;
-    q.usersVoted.push(this.state.user.username);
-    putRequest(question)
+    q.votes += n;
+    if (n === 1) {
+      q.usersVoted.push(this.state.user.username);
+    } else {
+      remove(q.usersVoted, i => i === this.state.user.username);
+    }
+    putRequest(q)
       .then(res => res.json())
       .then((data) => {
         this.setState((prevState) => {
@@ -109,9 +114,15 @@ class App extends React.Component {
       })
       .catch((err) => {
         console.error(err);
-        q.votes -= 1;
+        q.votes -= n;
       });
     this.getQuestions();
+  }
+  handleUpvote(question) {
+    this.handleVote(question, 1);
+  }
+  handleDownvote(question) {
+    this.handleVote(question, -1);
   }
   handleAnswered(question) {
     const q = question;
@@ -224,34 +235,37 @@ class App extends React.Component {
                 />
             }
             />
-          <QuestionFormComponent
-            handleSubmit={this.handleSubmit}
-            user={this.state.user}
-            />
-          <SearchBar
-            sortBy={this.state.sortBy}
-            handleSortByChange={this.handleSortByChange}
-            handleReverse={this.handleReverse}
-            />
-          <QueueComponent
-            title="Pending Questions"
-            expanded={true}
-            questions={this.state.questions.filter(q => !q.answered).sort(this.sortMethod)}
-            handleUpvote={this.handleUpvote}
-            handleAnswered={this.handleAnswered}
-            handleDelete={this.handleDelete}
-            handleEdit={this.handleEdit}
-            handleTagDelete={this.handleTagDelete}
-            user={this.state.user}
-            />
-          <QueueComponent
-            title="Answered Questions"
-            expanded={false}
-            questions={this.state.questions.filter(q => q.answered)}
-            handleDelete={this.handleDelete}
-            handleTagDelete={this.handleTagDelete}
-            user={this.state.user}
-            />
+          <div className="app-body">
+            <QuestionFormComponent
+              handleSubmit={this.handleSubmit}
+              user={this.state.user}
+              />
+            <SearchBar
+              sortBy={this.state.sortBy}
+              handleSortByChange={this.handleSortByChange}
+              handleReverse={this.handleReverse}
+              />
+            <QueueComponent
+              title="Pending Questions"
+              expanded={true}
+              questions={this.state.questions.filter(q => !q.answered).sort(this.sortMethod)}
+              handleUpvote={this.handleUpvote}
+              handleDownvote={this.handleDownvote}
+              handleAnswered={this.handleAnswered}
+              handleDelete={this.handleDelete}
+              handleEdit={this.handleEdit}
+              handleTagDelete={this.handleTagDelete}
+              user={this.state.user}
+              />
+            <QueueComponent
+              title="Answered Questions"
+              expanded={false}
+              questions={this.state.questions.filter(q => q.answered)}
+              handleDelete={this.handleDelete}
+              handleTagDelete={this.handleTagDelete}
+              user={this.state.user}
+              />
+          </div>
         </div>
       </MuiThemeProvider>
     );
