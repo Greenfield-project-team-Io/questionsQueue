@@ -167,8 +167,7 @@ class App extends React.Component {
   }
   handleTagDelete(tag, question) {
     const q = question;
-    const idx = question.tags.indexOf(tag);
-    q.tags.splice(idx, 1);
+    remove(q.tags, t => t === tag);
     putRequest(q)
       .catch(err => console.error(err));
   }
