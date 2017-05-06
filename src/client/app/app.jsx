@@ -169,6 +169,15 @@ class App extends React.Component {
     const q = question;
     remove(q.tags, t => t === tag);
     putRequest(q)
+      .then((res) => {
+        if (res.status === 200) {
+          this.setState((prevState) => {
+            const questions = prevState.questions;
+            updateQuestions(questions, q);
+            return { questions };
+          });
+        }
+      })
       .catch(err => console.error(err));
   }
   componentDidMount() {
