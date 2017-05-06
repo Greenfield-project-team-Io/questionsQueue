@@ -1,3 +1,4 @@
+import { remove } from 'lodash';
 import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -6,6 +7,7 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
+
 
 const putRequest = (question) =>
   fetch('/api/questions', {
@@ -133,6 +135,13 @@ class App extends React.Component {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ _id }),
+    })
+    .then(() => {
+      this.setState((prevState) => {
+        const questions = prevState.questions;
+        remove(questions, (q) => q._id === _id);
+        return { questions };
+      });
     });
     this.getQuestions();
   }
