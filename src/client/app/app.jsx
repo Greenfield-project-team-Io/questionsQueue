@@ -203,7 +203,6 @@ class App extends React.Component {
     this.setState({ reverseSort });
   }
 
-
   // Utility
   componentDidMount() {
     this.getQuestions();
@@ -241,7 +240,8 @@ class App extends React.Component {
             <QueueComponent
               title="Pending Questions"
               expanded={true}
-              questions={this.state.questions.filter(q => !q.answered).sort(this.sortMethod)}
+              questions={this.state.questions.filter(q => !q.answered && this.filterMethod(q))
+                .sort(this.sortMethod)}
               handleUpvote={this.handleUpvote}
               handleDownvote={this.handleDownvote}
               handleAnswered={this.handleAnswered}
@@ -253,7 +253,8 @@ class App extends React.Component {
             <QueueComponent
               title="Answered Questions"
               expanded={false}
-              questions={this.state.questions.filter(q => q.answered)}
+              questions={this.state.questions.filter(q => q.answered && this.filterMethod(q))
+                .sort(this.sortMethod)}
               handleDelete={this.handleDelete}
               handleTagDelete={this.handleTagDelete}
               user={this.state.user}
