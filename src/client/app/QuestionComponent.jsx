@@ -59,7 +59,7 @@ const QuestionComponent = (props) => {
         {question.codeSnippet ? (
           <div className="question-snippet">
           {question.codeSnippet.split('\n').map((line, idx) => (
-            <span key={idx}>{line}<br/></span>
+            <pre key={idx}>{line}<br/></pre>
           ))}
           </div>) : null}
         <div className="tag-bar">{tags}</div>
