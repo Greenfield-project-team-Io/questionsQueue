@@ -45,6 +45,8 @@ class App extends React.Component {
       user,
       sortBy: 'createdAt',
       reverseSort: false,
+      searchText: '',
+      filterBy: 'all',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
@@ -57,6 +59,9 @@ class App extends React.Component {
     this.handleSortByChange = this.handleSortByChange.bind(this);
     this.sortMethod = this.sortMethod.bind(this);
     this.handleReverse = this.handleReverse.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleFilterByChange = this.handleFilterByChange.bind(this);
+    this.filterMethod = this.filterMethod.bind(this);
   }
   getQuestions() {
     const props = this.props;
@@ -195,7 +200,7 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  // Search / Sort Methods
+  // Search and Sort Methods
   handleSortByChange(sortBy) {
     this.setState({ sortBy });
   }
@@ -208,6 +213,23 @@ class App extends React.Component {
   handleReverse() {
     const reverseSort = !this.state.reverseSort;
     this.setState({ reverseSort });
+  }
+  handleSearchChange(event) {
+    this.setState({ searchText: event.target.value });
+  }
+  handleFilterByChange(filterBy) {
+    this.setState({ filterBy });
+  }
+  filterMethod(q) {
+    const query = this.state.searchText.toLowerCase();
+    if (this.state.filterBy === 'all') {
+      const joined = q.questionText + q.codeSnippet + q.tags.join(' ');
+      return joined.toLowerCase().includes(query);
+    }
+    if (this.state.filterBy === 'tags') {
+      return q.tags.join(' ').toLowerCase().includes(query);
+    }
+    return q[this.state.filterBy].toLowerCase().includes(query);
   }
 
 
@@ -236,19 +258,25 @@ class App extends React.Component {
             }
             />
           <div className="app-body">
-            <QuestionFormComponent
-              handleSubmit={this.handleSubmit}
-              user={this.state.user}
-              />
+              <QuestionFormComponent
+                handleSubmit={this.handleSubmit}
+                user={this.state.user}
+                />
             <SearchBar
               sortBy={this.state.sortBy}
               handleSortByChange={this.handleSortByChange}
+              reverseSort={this.state.reverseSort}
               handleReverse={this.handleReverse}
+              searchText={this.state.searchText}
+              handleSearchChange={this.handleSearchChange}
+              filterBy={this.state.filterBy}
+              handleFilterByChange={this.handleFilterByChange}
               />
             <QueueComponent
               title="Pending Questions"
               expanded={true}
-              questions={this.state.questions.filter(q => !q.answered).sort(this.sortMethod)}
+              questions={this.state.questions.filter(q => !q.answered && this.filterMethod(q))
+                                             .sort(this.sortMethod)}
               handleUpvote={this.handleUpvote}
               handleDownvote={this.handleDownvote}
               handleAnswered={this.handleAnswered}
@@ -260,7 +288,8 @@ class App extends React.Component {
             <QueueComponent
               title="Answered Questions"
               expanded={false}
-              questions={this.state.questions.filter(q => q.answered)}
+              questions={this.state.questions.filter(q => q.answered && this.filterMethod(q))
+                                             .sort(this.sortMethod)}
               handleDelete={this.handleDelete}
               handleTagDelete={this.handleTagDelete}
               user={this.state.user}
