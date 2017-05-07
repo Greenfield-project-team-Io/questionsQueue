@@ -6,31 +6,18 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import AutoComplete from 'material-ui/AutoComplete';
-// import Syntax from 'syntax';
 import TagArray from './TagArray.jsx';
 
 const allTags = ['Node', 'Express', 'React', 'Angular', 'Closures', 'Promises'];
-
-// const syntax = new Syntax({
-//   language: 'javascript',
-//   cssPrefix: '',
-// });
-//
-// syntax.richtext(
-//     '/* sample comment */\n' +
-//     '={function foo}= (bar, quux) {\n' +
-//     '    return 42 =(1)=\n' +
-//     '}\n',
-// );
 
 class QuestionFormComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionText: '',
-      codeSnippet: '',
+      questionText: this.props.question ? this.props.question.questionText : '',
+      codeSnippet: this.props.question ? this.props.question.codeSnippet : '',
       allTags: allTags,
-      appliedTags: [],
+      appliedTags: this.props.question ? this.props.question.tags : [],
       dialogOpen: false,
       snackbar: false,
     };
@@ -41,6 +28,7 @@ class QuestionFormComponent extends React.Component {
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.closeSnackbar = this.closeSnackbar.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleInputChange(event) {
@@ -103,6 +91,14 @@ class QuestionFormComponent extends React.Component {
     });
     this.refs.tagBar.setState({ searchText: '' });
   }
+  handleEdit(event) {
+    event.preventDefault();
+    const question = this.props.question;
+    question.questionText = this.state.questionText;
+    question.codeSnippet = this.state.codeSnippet;
+    question.tags = this.state.appliedTags;
+    this.props.handleEdit(question);
+  }
   render() {
     // options for dialog pop-up
     // there may be a better place to put these
@@ -123,7 +119,7 @@ class QuestionFormComponent extends React.Component {
 
     return (
       <Paper className="question-form" >
-        <form onSubmit={this.handleSubmit} >
+        <form onSubmit={this.props.handleEdit ? this.handleEdit : this.handleSubmit} >
           <div>
             <TextField
               name="questionText"
@@ -152,7 +148,7 @@ class QuestionFormComponent extends React.Component {
               tags={this.state.appliedTags}
               handleTagDelete={this.handleTagDelete} />
             </div>
-          <RaisedButton type="submit" disabled={!this.state.questionText} label="Submit" />
+            <RaisedButton type="submit" disabled={!this.state.questionText} label="Submit" />
         </form>
         <Dialog
         actions={dialogActions}
