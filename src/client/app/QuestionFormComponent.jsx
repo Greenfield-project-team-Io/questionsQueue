@@ -1,4 +1,6 @@
 import React from 'react';
+import CodeMirror from 'codemirror';
+import javascript from 'codemirror/mode/javascript/javascript'
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -134,6 +136,11 @@ class QuestionFormComponent extends React.Component {
               multiLine={true}
               floatingLabelText="Add a code snippet (optional)"
               onChange={this.handleInputChange} />
+            <textarea
+              ref="codeZone">
+                yo
+              </textarea>
+            <br/>
             <AutoComplete
               ref="tagBar"
               floatingLabelText="Add tags..."
