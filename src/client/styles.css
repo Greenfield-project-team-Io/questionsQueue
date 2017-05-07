@@ -10,9 +10,6 @@ body {
   width: 90% !important;
   margin: auto !important;
 }
-.help {
-  background-color: #2b9fda !important;
-}
 .question-form {
   margin: 15px 50px !important;
   padding: 10px 15px !important;
@@ -52,6 +49,9 @@ body {
 }
 .question .tag-bar {
   margin: 10px 0px !important;
+}
+.submit-button {
+  margin: 10px 10px !important;
 }
 .tag-chip>span {
   font-size: 0.8em !important;

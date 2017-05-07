@@ -91,6 +91,7 @@ class QuestionFormComponent extends React.Component {
     });
     this.refs.tagBar.setState({ searchText: '' });
   }
+
   handleEdit(event) {
     event.preventDefault();
     const question = this.props.question;
@@ -99,6 +100,7 @@ class QuestionFormComponent extends React.Component {
     question.tags = this.state.appliedTags;
     this.props.handleEdit(question);
   }
+
   render() {
     // options for dialog pop-up
     // there may be a better place to put these
@@ -108,7 +110,7 @@ class QuestionFormComponent extends React.Component {
       onTouchTap={this.closeDialog}
       />,
       <FlatButton
-      label="Submit"
+      label="Yes, create tag"
       onTouchTap={() => {
         this.confirmNewTag();
         this.closeDialog();
@@ -148,18 +150,18 @@ class QuestionFormComponent extends React.Component {
               tags={this.state.appliedTags}
               handleTagDelete={this.handleTagDelete} />
             </div>
-            <RaisedButton type="submit" disabled={!this.state.questionText} label="Submit" />
+            <RaisedButton type="submit" className="submit-button" disabled={!this.state.questionText} label="Submit" />
         </form>
         <Dialog
-        actions={dialogActions}
-        modal={false}
-        open={this.state.dialogOpen}
-        onRequestClose={this.closeDialog}
-        >Are you sure you want to create a new tag?
+          actions={dialogActions}
+          modal={false}
+          open={this.state.dialogOpen}
+          onRequestClose={this.closeDialog}
+          >Are you sure you want to create a new tag?
         </Dialog>
         <Snackbar
           open={this.state.snackbar}
-          message="Your Question Added To Queue"
+          message="Your Question Was Added To Queue Below!"
           autoHideDuration={4000}
           onRequestClose={this.closeSnackbar}
         />
