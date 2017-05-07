@@ -21,11 +21,7 @@ class QuestionFormComponent extends React.Component {
       allTags: allTags,
       appliedTags: this.props.question ? this.props.question.tags : [],
       dialogOpen: false,
-<<<<<<< HEAD
-=======
-      snackbar: false,
       showCode: false,
->>>>>>> progress
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -84,14 +80,10 @@ class QuestionFormComponent extends React.Component {
 
   openDialog() { this.setState({ dialogOpen: true }); }
   closeDialog() { this.setState({ dialogOpen: false }); }
-<<<<<<< HEAD
-=======
-  closeSnackbar() { this.setState({ snackbar: false }); }
   toggleCode() {
     const showCode = !this.state.showCode;
     this.setState({ showCode });
   }
->>>>>>> progress
 
   handleSubmit(event) {
     event.preventDefault();
