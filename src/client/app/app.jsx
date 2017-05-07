@@ -5,10 +5,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper';
+import Snackbar from 'material-ui/Snackbar';
 import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
 import SearchBar from './SearchBar.jsx';
-
 
 const putRequest = (question) =>
   fetch('/api/questions', {
@@ -47,6 +48,8 @@ class App extends React.Component {
       reverseSort: false,
       searchText: '',
       filterBy: 'all',
+      snackbar: false,
+      snackMessage: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
@@ -62,6 +65,7 @@ class App extends React.Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleFilterByChange = this.handleFilterByChange.bind(this);
     this.filterMethod = this.filterMethod.bind(this);
+    this.closeSnackbar = this.closeSnackbar.bind(this);
   }
   getQuestions() {
     const props = this.props;
@@ -237,8 +241,10 @@ class App extends React.Component {
       open: false,
     });
   }
+  closeSnackbar() { this.setState({ snackbar: false }); }
   render() {
     return (
+      <div class='main-page' >
       <MuiThemeProvider>
         <div>
           <AppBar title="Question Queue" showMenuIconButton={false}
@@ -288,6 +294,13 @@ class App extends React.Component {
           </div>
         </div>
       </MuiThemeProvider>
+      <Snackbar
+        open={this.state.snackbar}
+        message={this.state.snackMessage}
+        autoHideDuration={4000}
+        onRequestClose={this.closeSnackbar}
+      />
+      </div>
     );
   }
 }

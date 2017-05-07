@@ -20,6 +20,7 @@ class QuestionFormComponent extends React.Component {
       appliedTags: this.props.question ? this.props.question.tags : [],
       dialogOpen: false,
       snackbar: false,
+      snackMessage: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -76,7 +77,10 @@ class QuestionFormComponent extends React.Component {
 
   openDialog() { this.setState({ dialogOpen: true }); }
   closeDialog() { this.setState({ dialogOpen: false }); }
-  closeSnackbar() { this.setState({ snackbar: false }); }
+  closeSnackbar() { this.setState({
+    snackbar: false,
+    snackMessage: '',
+  }); }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -87,6 +91,7 @@ class QuestionFormComponent extends React.Component {
       questionText: '',
       codeSnippet: '',
       appliedTags: [],
+      snackMessage: 'Your Question Added To Queue',
       snackbar: true,
     });
     this.refs.tagBar.setState({ searchText: '' });
@@ -98,6 +103,10 @@ class QuestionFormComponent extends React.Component {
     question.codeSnippet = this.state.codeSnippet;
     question.tags = this.state.appliedTags;
     this.props.handleEdit(question);
+    this.props.setState({
+      snackMessage: 'Your Question edited and applied',
+      snackbar: true,
+    });
   }
   render() {
     // options for dialog pop-up
@@ -159,7 +168,7 @@ class QuestionFormComponent extends React.Component {
         </Dialog>
         <Snackbar
           open={this.state.snackbar}
-          message="Your Question Added To Queue"
+          message={this.state.snackMessage}
           autoHideDuration={4000}
           onRequestClose={this.closeSnackbar}
         />
