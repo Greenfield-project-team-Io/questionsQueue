@@ -1,4 +1,6 @@
 import React from 'react';
+import CodeMirror from 'codemirror';
+import javascript from 'codemirror/mode/javascript/javascript'
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
