@@ -6,22 +6,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import AutoComplete from 'material-ui/AutoComplete';
-// import Syntax from 'syntax';
 import TagArray from './TagArray.jsx';
 
 const allTags = ['Node', 'Express', 'React', 'Angular', 'Closures', 'Promises'];
-
-// const syntax = new Syntax({
-//   language: 'javascript',
-//   cssPrefix: '',
-// });
-//
-// syntax.richtext(
-//     '/* sample comment */\n' +
-//     '={function foo}= (bar, quux) {\n' +
-//     '    return 42 =(1)=\n' +
-//     '}\n',
-// );
 
 class QuestionFormComponent extends React.Component {
   constructor(props) {
