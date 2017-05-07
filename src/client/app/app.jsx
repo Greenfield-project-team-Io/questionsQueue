@@ -163,26 +163,40 @@ class App extends React.Component {
     });
     this.getQuestions();
   }
+  // handleEdit(question) {
+  //   const q = question;
+  //   const preText = q.questionText;
+  //   const editedText = prompt('Edit Your Question Here..', preText);
+  //   if (editedText !== null && editedText!== '' && preText !== editedText) {
+  //     q.questionText = editedText;
+  //     putRequest(question)
+  //       .then(res => res.json())
+  //       .then((data) => {
+  //         this.setState((prevState) => {
+  //           const questions = prevState.questions;
+  //           updateQuestions(questions, data);
+  //           return { questions };
+  //         });
+  //       })
+  //       .catch((err) => {
+  //         console.error(err);
+  //       });
+  //   }
+  //   console.log(typeof question.createdAt);
+  // }
   handleEdit(question) {
-    const q = question;
-    const preText = q.questionText;
-    const editedText = prompt('Edit Your Question Here..', preText);
-    if (editedText !== null && editedText!== '' && preText !== editedText) {
-      q.questionText = editedText;
-      putRequest(question)
-        .then(res => res.json())
-        .then((data) => {
-          this.setState((prevState) => {
-            const questions = prevState.questions;
-            updateQuestions(questions, data);
-            return { questions };
-          });
-        })
-        .catch((err) => {
-          console.error(err);
+    putRequest(question)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState((prevState) => {
+          const questions = prevState.questions;
+          updateQuestions(questions, data);
+          return { questions };
         });
-    }
-    console.log(typeof question.createdAt);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
   handleTagDelete(tag, question) {
     const q = question;
