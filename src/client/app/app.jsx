@@ -45,8 +45,6 @@ class App extends React.Component {
       user,
       sortBy: 'createdAt',
       reverseSort: false,
-      searchText: '',
-      filterBy: 'all',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
@@ -59,9 +57,6 @@ class App extends React.Component {
     this.handleSortByChange = this.handleSortByChange.bind(this);
     this.sortMethod = this.sortMethod.bind(this);
     this.handleReverse = this.handleReverse.bind(this);
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.handleFilterByChange = this.handleFilterByChange.bind(this);
-    this.filterMethod = this.filterMethod.bind(this);
   }
   getQuestions() {
     const props = this.props;
@@ -163,27 +158,6 @@ class App extends React.Component {
     });
     this.getQuestions();
   }
-  // handleEdit(question) {
-  //   const q = question;
-  //   const preText = q.questionText;
-  //   const editedText = prompt('Edit Your Question Here..', preText);
-  //   if (editedText !== null && editedText!== '' && preText !== editedText) {
-  //     q.questionText = editedText;
-  //     putRequest(question)
-  //       .then(res => res.json())
-  //       .then((data) => {
-  //         this.setState((prevState) => {
-  //           const questions = prevState.questions;
-  //           updateQuestions(questions, data);
-  //           return { questions };
-  //         });
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //       });
-  //   }
-  //   console.log(typeof question.createdAt);
-  // }
   handleEdit(question) {
     putRequest(question)
       .then(res => res.json())
@@ -214,7 +188,7 @@ class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  // Search and Sort Methods
+  // Search / Sort Methods
   handleSortByChange(sortBy) {
     this.setState({ sortBy });
   }
@@ -227,23 +201,6 @@ class App extends React.Component {
   handleReverse() {
     const reverseSort = !this.state.reverseSort;
     this.setState({ reverseSort });
-  }
-  handleSearchChange(event) {
-    this.setState({ searchText: event.target.value });
-  }
-  handleFilterByChange(filterBy) {
-    this.setState({ filterBy });
-  }
-  filterMethod(q) {
-    const query = this.state.searchText.toLowerCase();
-    if (this.state.filterBy === 'all') {
-      const joined = q.questionText + q.codeSnippet + q.tags.join(' ');
-      return joined.toLowerCase().includes(query);
-    }
-    if (this.state.filterBy === 'tags') {
-      return q.tags.join(' ').toLowerCase().includes(query);
-    }
-    return q[this.state.filterBy].toLowerCase().includes(query);
   }
 
 
@@ -272,25 +229,19 @@ class App extends React.Component {
             }
             />
           <div className="app-body">
-              <QuestionFormComponent
-                handleSubmit={this.handleSubmit}
-                user={this.state.user}
-                />
+            <QuestionFormComponent
+              handleSubmit={this.handleSubmit}
+              user={this.state.user}
+              />
             <SearchBar
               sortBy={this.state.sortBy}
               handleSortByChange={this.handleSortByChange}
-              reverseSort={this.state.reverseSort}
               handleReverse={this.handleReverse}
-              searchText={this.state.searchText}
-              handleSearchChange={this.handleSearchChange}
-              filterBy={this.state.filterBy}
-              handleFilterByChange={this.handleFilterByChange}
               />
             <QueueComponent
               title="Pending Questions"
               expanded={true}
-              questions={this.state.questions.filter(q => !q.answered && this.filterMethod(q))
-                                             .sort(this.sortMethod)}
+              questions={this.state.questions.filter(q => !q.answered).sort(this.sortMethod)}
               handleUpvote={this.handleUpvote}
               handleDownvote={this.handleDownvote}
               handleAnswered={this.handleAnswered}
@@ -302,8 +253,7 @@ class App extends React.Component {
             <QueueComponent
               title="Answered Questions"
               expanded={false}
-              questions={this.state.questions.filter(q => q.answered && this.filterMethod(q))
-                                             .sort(this.sortMethod)}
+              questions={this.state.questions.filter(q => q.answered)}
               handleDelete={this.handleDelete}
               handleTagDelete={this.handleTagDelete}
               user={this.state.user}
