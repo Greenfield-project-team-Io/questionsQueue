@@ -2,7 +2,6 @@ import { remove } from 'lodash';
 import React from 'react';
 import { render } from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -47,8 +46,9 @@ class App extends React.Component {
       reverseSort: false,
       searchText: '',
       filterBy: 'all',
-      snackbar: false,
       snackMessage: '',
+      snackbackgroundColor: '#536DFE',
+      snackbar: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getQuestions = this.getQuestions.bind(this);
@@ -99,7 +99,12 @@ class App extends React.Component {
     .then((data) => {
       this.setState((prevState) => {
         prevState.questions.push(data);
-        return { questions: prevState.questions };
+        return {
+          questions: prevState.questions,
+          snackMessage: 'Your Question was added to Queue',
+          snackbackgroundColor: '#536DFE',
+          snackbar: true,
+        };
       });
     });
   }
@@ -128,9 +133,19 @@ class App extends React.Component {
   }
   handleUpvote(question) {
     this.handleVote(question, 1);
+    this.setState({
+      snackMessage: 'Your Vote Applied !',
+      snackbackgroundColor: '#388E3C',
+      snackbar: true,
+    });
   }
   handleDownvote(question) {
     this.handleVote(question, -1);
+    this.setState({
+      snackMessage: 'Your Vote Removed !',
+      snackbackgroundColor: '#FF7043',
+      snackbar: true,
+    });
   }
   handleAnswered(question) {
     const q = question;
@@ -141,7 +156,11 @@ class App extends React.Component {
         this.setState((prevState) => {
           const questions = prevState.questions;
           updateQuestions(questions, data);
-          return { questions };
+          return { questions,
+            snackMessage: 'Question cleared and moved to answered Queue',
+            snackbackgroundColor: '#18FFFF',
+            snackbar: true,
+          }
         });
       })
       .catch((err) => {
@@ -161,7 +180,12 @@ class App extends React.Component {
       this.setState((prevState) => {
         const questions = prevState.questions;
         remove(questions, (q) => q._id === _id);
-        return { questions };
+        return {
+          questions,
+          snackMessage: 'Your Question was deleted from Queue',
+          snackbackgroundColor: '#E53935',
+          snackbar: true,
+        };
       });
     });
     this.getQuestions();
@@ -173,7 +197,11 @@ class App extends React.Component {
         this.setState((prevState) => {
           const questions = prevState.questions;
           updateQuestions(questions, data);
-          return { questions };
+          return { questions,
+            snackMessage: 'Your Question was edited and applied to Queue',
+            snackbackgroundColor: '#FBC02D',
+            snackbar: true,
+          };
         });
       })
       .catch((err) => {
@@ -240,10 +268,15 @@ class App extends React.Component {
       open: false,
     });
   }
-  closeSnackbar() { this.setState({ snackbar: false }); }
+  closeSnackbar() {
+    this.setState({
+      snackbar: false,
+      snackMessage: '',
+    });
+  }
+
   render() {
     return (
-      <div class='main-page' >
       <MuiThemeProvider>
         <div>
           <AppBar title="Question Queue" showMenuIconButton={false}
@@ -291,15 +324,15 @@ class App extends React.Component {
               user={this.state.user}
               />
           </div>
+          <Snackbar
+            bodyStyle={{ background: this.state.snackbackgroundColor }}
+            open={this.state.snackbar}
+            message={this.state.snackMessage}
+            autoHideDuration={4000}
+            onRequestClose={this.closeSnackbar}
+          />
         </div>
       </MuiThemeProvider>
-      <Snackbar
-        open={this.state.snackbar}
-        message={this.state.snackMessage}
-        autoHideDuration={4000}
-        onRequestClose={this.closeSnackbar}
-      />
-      </div>
     );
   }
 }
