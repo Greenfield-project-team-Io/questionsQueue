@@ -1,6 +1,19 @@
 body {
   background-color: #F8F8F8 !important;
 }
+.welcomeText {
+  text-align: center;
+  padding: 120px;
+}
+.githubIcon {
+  background: url("./images/github.svg");
+}
+.loginButton {
+  align-items: center;
+}
+.appbar {
+  background-color: #2b9fda !important;
+}
 .app-body {
   max-width: 1500px !important;
   min-width: 300px !important;
