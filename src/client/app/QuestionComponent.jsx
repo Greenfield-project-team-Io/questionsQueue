@@ -1,10 +1,10 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import { Card, CardActions, CardText } from 'material-ui/Card';
+import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import { grey200 } from 'material-ui/styles/colors';
 import TagArray from './TagArray.jsx';
-
 import EditComponent from './EditComponent.jsx';
+import CodeToggle from './CodeToggle.jsx';
 
 const QuestionComponent = (props) => {
   const question = props.question;
@@ -45,21 +45,23 @@ const QuestionComponent = (props) => {
       question={question}
       />
   );
+
+  const snippet = question.codeSnippet ? (
+      <CodeToggle codeSnippet={question.codeSnippet}
+      readOnly='nocursor' />
+    ) : null;
+
   const date = new Date(question.createdAt);
   return (
-      <Card className="question">
+      <Card className="question" initiallyExpanded={false}>
+
         <CardText className="question-card-content">
         <div className="question-body">
           {question.questionText.split('\n').map((line, idx) => (
             <span key={idx}>{line}<br/></span>
           ))}
         </div>
-        {question.codeSnippet ? (
-          <div className="question-snippet">
-          {question.codeSnippet.split('\n').map((line, idx) => (
-            <pre key={idx}>{line}<br/></pre>
-          ))}
-          </div>) : null}
+        {snippet}
         <div className="tag-bar">{tags}</div>
         <div className="question-info-bar">
           <span className="votes-span">Votes: {question.votes}</span>
