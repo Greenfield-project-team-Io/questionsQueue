@@ -3,7 +3,12 @@
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
+<<<<<<< HEAD
   height: auto;
+=======
+  height: 100px;
+  height: 150px;
+>>>>>>> syntax highlighting in forms and questions
   color: black;
 }
 

@@ -22,30 +22,25 @@ class CodeZone extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.state.codeEditor) {
-      this.state.codeEditor = CodeMirror.fromTextArea(this.refs.codeZone, {
-        lineNumbers: true,
-        mode: 'javascript',
-        viewportMargin: 50,
-        readOnly: this.state.readOnly,
-        // matchBrackets: true,
-      });
-      this.state.codeEditor.on('change', this.handleCodeChange);
-    }
+    // initialize CodeMirror
+    this.state.codeEditor = CodeMirror.fromTextArea(this.refs.codeZone, {
+      lineNumbers: true,
+      mode: 'javascript',
+      viewportMargin: 50,
+      readOnly: this.state.readOnly,
+      // matchBrackets: true,
+    });
+    this.state.codeEditor.on('change', this.handleCodeChange);
   }
 
   componentWillUnmount() {
+    // end CodeMirror instance so element can unmount
     this.state.codeEditor.toTextArea();
   }
 
   render() {
     return (
-      <textarea
-      name={this.props.name}
-      ref="codeZone"
-      rows={10}
-      value={this.props.codeSnippet} >
-      </textarea>
+      <textarea ref="codeZone" value={this.props.codeSnippet} />
     );
   }
 }
