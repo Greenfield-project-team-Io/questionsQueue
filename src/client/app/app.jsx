@@ -66,6 +66,13 @@ class App extends React.Component {
     this.filterMethod = this.filterMethod.bind(this);
     this.closeSnackbar = this.closeSnackbar.bind(this);
   }
+  componentDidMount() {
+    this.getQuestions();
+    this.interval = setInterval(() => this.getQuestions(), 2000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
   getQuestions() {
     const props = this.props;
     fetch('/api/questions', { credentials: 'include' })
@@ -260,13 +267,7 @@ class App extends React.Component {
     return false;
   }
   // Utility
-  componentDidMount() {
-    this.getQuestions();
-    this.interval = setInterval(() => this.getQuestions(), 2000);
-  }
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+
   handleRequestClose() {
     this.setState({
       open: false,
