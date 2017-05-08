@@ -22,3 +22,5 @@ Lists of questions should be tied to a specific cohort.
 
 - Implement permission scoping to backend
 The current implementation only hides the edit/delete buttons on the front-end. If a user makes API calls, they can bypass the restrictions.
+
+- Add answers
