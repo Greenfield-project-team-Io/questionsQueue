@@ -12,21 +12,8 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import AuthExample from './Routes.jsx';
 import LoginComponent from './Login.jsx';
 import App from './app.jsx';
-
-// const fakeAuth = {
-//   loggedIn: false,
-//   authenticate(cb) {
-//     this.loggedIn = true;
-//     setTimeout(cb, 100);
-//   },
-//   signout(cb) {
-//     this.loggedIn = false;
-//     setTimeout(cb, 100);
-//   },
-// };
 
 class Main extends React.Component {
   constructor(props) {
