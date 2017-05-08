@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 
 // note: refactor this component to use the material-ui 'toolbar' and avoid css workarounds
+// element position is using px and not scalable
 
 // const handleChange = (event, index, value) => this.setState({ value });
 const SearchBar = props => (
