@@ -4,10 +4,14 @@
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
 <<<<<<< HEAD
+<<<<<<< HEAD
   height: 100px;
 =======
   height: 300px;
 >>>>>>> wee code highlighting
+=======
+  height: 300px;
+>>>>>>> progress
   color: black;
 }
 

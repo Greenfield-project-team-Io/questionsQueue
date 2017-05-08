@@ -9,7 +9,12 @@ import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
 import SearchBar from './SearchBar.jsx';
 
+<<<<<<< HEAD
 const putRequest = (question) =>
+=======
+
+const putRequest = question =>
+>>>>>>> progress
   fetch('/api/questions', {
     credentials: 'include',
     method: 'PUT',
