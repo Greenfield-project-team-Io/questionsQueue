@@ -246,14 +246,18 @@ class App extends React.Component {
   }
   filterMethod(q) {
     const query = this.state.searchText.toLowerCase();
-    if (this.state.filterBy === 'all') {
+    const f = this.state.filterBy;
+    if (f === 'all') {
       const joined = q.questionText + q.codeSnippet + q.tags.join(' ');
       return joined.toLowerCase().includes(query);
     }
-    if (this.state.filterBy === 'tags') {
+    if (f === 'tags') {
       return q.tags.join(' ').toLowerCase().includes(query);
     }
-    return q[this.state.filterBy].toLowerCase().includes(query);
+    if (f === 'questionText' || (f === 'codeSnippet' && q.codeSnippet)) {
+      return q[f].toLowerCase().includes(query);
+    }
+    return false;
   }
   // Utility
   componentDidMount() {

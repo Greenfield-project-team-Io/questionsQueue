@@ -1,6 +1,10 @@
 import React from 'react';
 import CodeMirror from 'codemirror';
 import javascript from 'codemirror/mode/javascript/javascript';
+import closeBrackets from 'codemirror/addon/edit/closebrackets';
+import matchBrackets from 'codemirror/addon/edit/matchbrackets';
+import lint from 'codemirror/addon/lint/lint';
+import javascriptLint from 'codemirror/addon/lint/javascript-lint'
 
 class CodeZone extends React.Component {
   constructor(props) {
@@ -26,12 +30,17 @@ class CodeZone extends React.Component {
     this.state.codeEditor = CodeMirror.fromTextArea(this.refs.codeZone, {
       lineNumbers: true,
       mode: 'javascript',
-      viewportMargin: 50,
+      viewportMargin: 20,
       readOnly: this.state.readOnly,
-      // matchBrackets: true,
+      theme: 'neo',
+      matchBrackets: true,
+      autoCloseBrackets: true,
+      // gutters: ['CodeMirror-lint-markers'],
+      // lint: true,
     });
     this.state.codeEditor.on('change', this.handleCodeChange);
   }
+
 
   componentWillUnmount() {
     // end CodeMirror instance so element can unmount

@@ -18,8 +18,6 @@ passport.deserializeUser((user, done) => done(null, user));
 // ^^^^^^ this may be the place to check user in db ^^^^^
 
 exports.checkAuth = (req, res, next) => {
-  // console.log('Authenticated: ', req.isAuthenticated());
-  // console.log('Headers: ', req.headers);
   if (req.isAuthenticated()) { return next(); }
   res.status(403).send();
   return 'appease airbnb';
