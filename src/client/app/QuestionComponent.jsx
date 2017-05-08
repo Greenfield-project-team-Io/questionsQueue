@@ -90,5 +90,4 @@ const months = [
   'December',
 ];
 
-// <div>Tags: <TagArray tags={question.tags} /></div>
 export default QuestionComponent;

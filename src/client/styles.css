@@ -1,9 +1,6 @@
 body {
   background-color: #F8F8F8 !important;
 }
-.appbar {
-  background-color: #2b9fda !important;
-}
 .app-body {
   max-width: 1500px !important;
   min-width: 300px !important;
@@ -71,20 +68,27 @@ body {
   flex-wrap: wrap;
   /*align-items: baseline !important;*/
   margin: 15px 50px !important;
+  height: 100px !important;
 }
 .search-field {
   margin-left: 30px !important;
   /*display: inline-flex !important;*/
   align-self: baseline !important;
+  top: 6px !important;
 }
 .search-dropdown {
   padding-right: 0px !important;
   display: inline-flex !important;
   align-self: baseline !important;
 }
-.searchButton {
-  padding-left: 0px !important;
+.sort-dropdown {
+  padding-right: 0px !important;
   display: inline-flex !important;
   align-self: baseline !important;
-  border-right: 1px solid grey !important;
+  margin-left: 400px !important;
+}
+.sortButton {
+  padding-left: 0px !important;
+  margin-top: 30px !important;
+  display: inline-flex !important;
 }
