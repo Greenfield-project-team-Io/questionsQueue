@@ -17,12 +17,12 @@ class QuestionFormComponent extends React.Component {
     super(props);
     this.state = {
       questionText: this.props.question ? this.props.question.questionText : '',
-      codeSnippet: this.props.question ? this.props.question.codeSnippet : '// Add some code...',
+      codeSnippet: this.props.question ? this.props.question.codeSnippet : '',
       allTags: allTags,
       appliedTags: this.props.question ? this.props.question.tags : [],
       dialogOpen: false,
       showCode: false,
-      showButtonText: this.props.question ? 'Show Code' : '// Add some code',
+      showButtonText: this.props.question ? 'Show Code' : 'Add some code',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -87,13 +87,13 @@ class QuestionFormComponent extends React.Component {
     event.preventDefault();
     // don't add a snippet if user has not modified code editor
     let codeSnippet = this.state.codeSnippet;
-    if (codeSnippet === '// Add some code...') codeSnippet = '';
+    if (codeSnippet === '') codeSnippet = '';
     this.props.handleSubmit(this.state.questionText,
                             codeSnippet,
                             this.state.appliedTags);
     this.setState({
       questionText: '',
-      codeSnippet: '// Add some code...',
+      codeSnippet: '',
       appliedTags: [],
       showCode: false,
     });
@@ -149,12 +149,10 @@ class QuestionFormComponent extends React.Component {
               multiLine={true}
               floatingLabelText="Ask a question..."
               onChange={this.handleInputChange} />
+            <FlatButton onClick={this.toggleCode}
+              label= {this.state.showCode ? 'Hide Code' : this.state.showButtonText} />
+            {this.state.showCode ? codeZone : null}
             <br/>
-            <br/>
-            <CodeZone
-              name="codeSnippet"
-              onChange={this.handleInputChange}
-              codeSnippet={this.state.codeSnippet} />
             <AutoComplete
               ref="tagBar"
               floatingLabelText="Add tags..."

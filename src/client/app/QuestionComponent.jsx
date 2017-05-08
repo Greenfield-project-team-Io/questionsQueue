@@ -4,7 +4,7 @@ import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import { grey200 } from 'material-ui/styles/colors';
 import TagArray from './TagArray.jsx';
 import EditComponent from './EditComponent.jsx';
-import CodeZone from './CodeZone.jsx';
+import CodeToggle from './CodeToggle.jsx';
 
 const QuestionComponent = (props) => {
   const question = props.question;
@@ -47,7 +47,7 @@ const QuestionComponent = (props) => {
   );
 
   const snippet = question.codeSnippet ? (
-      <CodeZone codeSnippet={question.codeSnippet}
+      <CodeToggle codeSnippet={question.codeSnippet}
       readOnly='nocursor' />
     ) : null;
 
