@@ -1,11 +1,16 @@
 const passport = require('passport');
 const GithubStrategy = require('passport-github2').Strategy;
-const config = require('../../config');
+const config = process.env.GITHUBID ? {
+  githubID: process.env.GITHUBID,
+  githubSecret: process.env.GITHUBSECRET,
+} : require('../../config');
+
+const baseURL = process.env.BASEURL || '';
 
 passport.use(new GithubStrategy({
   clientID: config.githubID,
   clientSecret: config.githubSecret,
-  callbackURL: '/auth/github/callback' },
+  callbackURL: `${baseURL}/auth/github/callback` },
   (accessToken, refreshToken, profile, done) => done(null, profile)));
 
 passport.serializeUser((user, done) => done(null, user));
