@@ -41,12 +41,10 @@ From within the root directory:
 ```sh
 npm install
 ```
-## Tasks
+## Roadmap
 
-- Slack bot integration
-Students should be able to submit questions via Slack.
-- Analytics
-Instructors should be able to compile statistics about questions asked.
+See [ROADMAP.md](ROADMAP.md).
+
 
 ## Contributing
 
