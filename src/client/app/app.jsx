@@ -85,8 +85,7 @@ class App extends React.Component {
           return null;
         }
       })
-      .then(questions => this.setState({ questions }))
-      .catch(err => console.error('error', JSON.stringify(err)));
+      .then(questions => this.setState({ questions }));
   }
 
   // Methods to update questions
@@ -133,7 +132,6 @@ class App extends React.Component {
         });
       })
       .catch((err) => {
-        console.error(err);
         q.votes -= n;
       });
     this.getQuestions();
@@ -171,7 +169,6 @@ class App extends React.Component {
         });
       })
       .catch((err) => {
-        console.error(err);
         q.answered = false;
       });
   }
@@ -212,7 +209,6 @@ class App extends React.Component {
         });
       })
       .catch((err) => {
-        console.error(err);
       });
   }
   handleTagDelete(tag, question) {
@@ -227,8 +223,7 @@ class App extends React.Component {
             return { questions };
           });
         }
-      })
-      .catch(err => console.error(err));
+      });
   }
 
   // Search and Sort Methods
@@ -279,7 +274,6 @@ class App extends React.Component {
       snackMessage: '',
     });
   }
-
   render() {
     return (
       <MuiThemeProvider>
