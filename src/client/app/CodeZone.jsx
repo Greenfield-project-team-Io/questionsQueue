@@ -3,18 +3,20 @@ import CodeMirror from 'codemirror';
 import javascript from 'codemirror/mode/javascript/javascript';
 import closeBrackets from 'codemirror/addon/edit/closebrackets';
 import matchBrackets from 'codemirror/addon/edit/matchbrackets';
-import lint from 'codemirror/addon/lint/lint';
-import javascriptLint from 'codemirror/addon/lint/javascript-lint'
 
 class CodeZone extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { codeEditor: null };
+    this.state = {
+      // codeEditor: null,
+      readOnly: props.readOnly || false,
+    };
     this.handleCodeChange = this.handleCodeChange.bind(this);
   }
 
+
   handleCodeChange() {
-    const codeSnippet = this.state.codeEditor.getValue();
+    const codeSnippet = this.codeEditor.getValue();
     // create an object that mimics an event object.
     // provide the values that FormComponent expects for handleInputChange
     this.props.onChange({
@@ -27,7 +29,7 @@ class CodeZone extends React.Component {
 
   componentDidMount() {
     // initialize CodeMirror
-    this.state.codeEditor = CodeMirror.fromTextArea(this.refs.codeZone, {
+    this.codeEditor = CodeMirror.fromTextArea(this.refs.codeZone, {
       lineNumbers: true,
       mode: 'javascript',
       viewportMargin: 20,
@@ -35,17 +37,23 @@ class CodeZone extends React.Component {
       theme: 'neo',
       matchBrackets: true,
       autoCloseBrackets: true,
-      // gutters: ['CodeMirror-lint-markers'],
+      // Hey legacy: Linting is cool and probably useful.
+      // Not enabled here because the default linter hates ES6.
+      // Check out the example on codemirror.net and reverse engineer it if you want to add.
       // lint: true,
     });
-    this.state.codeEditor.on('change', this.handleCodeChange);
+    this.codeEditor.on('change', this.handleCodeChange);
   }
 
 
   componentWillUnmount() {
     // end CodeMirror instance so element can unmount
-    this.state.codeEditor.toTextArea();
+    this.codeEditor.toTextArea();
   }
+
+  // componentWillReceiveProps(newProps) {
+  //   if (!this.state.readOnly) this.refs.codeZone.value = newProps.codeSnippet;
+  // }
 
   render() {
     return (
