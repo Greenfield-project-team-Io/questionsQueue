@@ -1,6 +1,5 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
@@ -19,7 +18,6 @@ class QuestionFormComponent extends React.Component {
       allTags: allTags,
       appliedTags: this.props.question ? this.props.question.tags : [],
       dialogOpen: false,
-      snackbar: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,7 +25,6 @@ class QuestionFormComponent extends React.Component {
     this.handleTagDelete = this.handleTagDelete.bind(this);
     this.openDialog = this.openDialog.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
-    this.closeSnackbar = this.closeSnackbar.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
   }
 
@@ -76,7 +73,6 @@ class QuestionFormComponent extends React.Component {
 
   openDialog() { this.setState({ dialogOpen: true }); }
   closeDialog() { this.setState({ dialogOpen: false }); }
-  closeSnackbar() { this.setState({ snackbar: false }); }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -87,7 +83,6 @@ class QuestionFormComponent extends React.Component {
       questionText: '',
       codeSnippet: '',
       appliedTags: [],
-      snackbar: true,
     });
     this.refs.tagBar.setState({ searchText: '' });
   }
@@ -159,12 +154,6 @@ class QuestionFormComponent extends React.Component {
           onRequestClose={this.closeDialog}
           >Are you sure you want to create a new tag?
         </Dialog>
-        <Snackbar
-          open={this.state.snackbar}
-          message="Your Question Was Added To Queue Below!"
-          autoHideDuration={4000}
-          onRequestClose={this.closeSnackbar}
-        />
       </Paper>
     );
   }
