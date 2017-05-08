@@ -279,7 +279,7 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar title="Question Queue" showMenuIconButton={false}
+          <AppBar title="Question Queue"
             iconElementRight={
               <FlatButton label="Log Out"
                 href="/auth/logout"
