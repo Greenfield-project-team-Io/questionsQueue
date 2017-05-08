@@ -9,7 +9,6 @@ import QueueComponent from './QueueComponent.jsx';
 import QuestionFormComponent from './QuestionFormComponent.jsx';
 import SearchBar from './SearchBar.jsx';
 
-
 const putRequest = (question) =>
   fetch('/api/questions', {
     credentials: 'include',
@@ -241,7 +240,7 @@ class App extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <AppBar title="Question Queue" showMenuIconButton={false}
+          <AppBar title="Question Queue"
             iconElementRight={
               <FlatButton label="Log Out"
                 href="/auth/logout"
