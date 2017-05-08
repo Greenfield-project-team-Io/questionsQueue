@@ -1,0 +1,23 @@
+{
+  parser: "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+
+  "globals": {
+    "React": true
+  },
+
+  "ecmaFeatures": {
+    "jsx": true
+  },
+
+  "plugins": [
+    "react"
+  ],
+  "extends": ["airbnb-base"],
+    "rules": {
+        no-unused-vars: "off"
+    }
+}

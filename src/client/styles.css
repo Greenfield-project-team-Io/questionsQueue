@@ -1,0 +1,107 @@
+body {
+  background-color: #F8F8F8 !important;
+}
+.welcomeText {
+  text-align: center;
+  padding: 120px;
+}
+.githubIcon {
+  background: url("./images/github.svg");
+}
+.loginButton {
+  align-items: center;
+}
+.appbar {
+  background-color: #2b9fda !important;
+}
+.app-body {
+  max-width: 1500px !important;
+  min-width: 300px !important;
+  width: 90% !important;
+  margin: auto !important;
+}
+.question-form {
+  margin: 15px 50px !important;
+  padding: 10px 15px !important;
+}
+.queston-text-box {
+  width: 100% !important;
+}
+.queue {
+  margin: 15px 50px !important;
+  background-color: white !important;
+}
+.question {
+  margin: 10px 20px !important;
+  background-color: #F8F8F8 !important;
+}
+.question-card-content {
+  padding-bottom: 0px !important;
+}
+.question-body {
+  border-left: 3px solid #424242 !important;
+  padding-left: 5px !important;
+  margin-bottom: 10px !important;
+  font-size: 1.1em !important;
+  color: #424242 !important;
+}
+.question-snippet {
+  color: #9e9e9e !important;
+  border-left: 2px solid #9e9e9e !important;
+  padding-left: 5px !important;
+  margin-bottom: 10px !important;
+  font-size: 1em !important;
+  font-family: monospace !important;
+}
+.question-info-bar {
+  color: #757575 !important;
+  font-size: 0.8em !important;
+}
+.question .tag-bar {
+  margin: 10px 0px !important;
+}
+.submit-button {
+  margin: 10px 10px !important;
+}
+.tag-chip>span {
+  font-size: 0.8em !important;
+}
+.votes-span {
+  font-size: 1.2em !important;
+}
+.timestamp-span {
+  float: right !important;
+}
+.favIcon{
+  height: 10px !important;
+}
+.searchToolBar {
+  display: flex !important;
+  flex-direction: row !important
+  flex-wrap: wrap;
+  /*align-items: baseline !important;*/
+  margin: 15px 50px !important;
+  height: 100px !important;
+}
+.search-field {
+  margin-left: 30px !important;
+  /*display: inline-flex !important;*/
+  align-self: baseline !important;
+  top: 6px !important;
+}
+.search-dropdown {
+  padding-right: 0px !important;
+  display: inline-flex !important;
+  align-self: baseline !important;
+}
+.sort-dropdown {
+  padding-right: 0px !important;
+  display: inline-flex !important;
+  align-self: baseline !important;
+  margin-left: 400px !important;
+}
+.sortButton {
+  padding-left: 0px !important;
+  margin-top: 30px !important;
+  display: inline-flex !important;
+}
