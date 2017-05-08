@@ -7,7 +7,7 @@ const morgan = require('morgan');
 
 const routes = require('./routes');
 const auth = require('./auth');
-const config = require('../../config');
+const config = process.env.SECRET ? { secret: process.env.SECRET } : require('../../config');
 
 const app = express();
 

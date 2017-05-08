@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
-const config = require('../../../config');
+const config = process.env.MLABUSER ? {
+  user: process.env.MLABUSER,
+  password: process.env.MLABPWORD,
+} : require('../../../config');
 
 mongoose.connect(`mongodb://${config.user}:${config.password}@ds123311.mlab.com:23311/questionsqueue`);
 

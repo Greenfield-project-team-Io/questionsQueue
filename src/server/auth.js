@@ -1,6 +1,9 @@
 const passport = require('passport');
 const GithubStrategy = require('passport-github2').Strategy;
-const config = require('../../config');
+const config = process.env.GITHUBID ? {
+  githubID: process.env.GITHUBID,
+  githubSecret: process.env.GITHUBSECRET,
+} : require('../../config');
 
 passport.use(new GithubStrategy({
   clientID: config.githubID,
