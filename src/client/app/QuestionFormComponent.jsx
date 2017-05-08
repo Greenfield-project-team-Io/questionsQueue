@@ -10,7 +10,10 @@ import AutoComplete from 'material-ui/AutoComplete';
 import TagArray from './TagArray.jsx';
 import CodeZone from './CodeZone.jsx';
 
-const allTags = ['Node', 'Express', 'React', 'Angular', 'Closures', 'Promises'];
+const allTags = ['Node', 'Express', 'React', 'Angular', 'Closures', 'Promises',
+                  'Data Structures', 'Giancarlo', 'MongoDB', 'SQL', 'Git', 'Backbone',
+                  'Callback Functions', 'ES6', 'Leo\'s Magnificent Beard', 'Optimization',
+                  'Corgis'];
 
 class QuestionFormComponent extends React.Component {
   constructor(props) {
@@ -178,13 +181,3 @@ class QuestionFormComponent extends React.Component {
 }
 
 export default QuestionFormComponent;
-
-//
-// <TextField
-//   name="codeSnippet"
-//   className="code-text-form"
-//   fullWidth={true}
-//   value={this.state.codeSnippet}
-//   multiLine={true}
-//   floatingLabelText="Add a code snippet (optional)"
-//   onChange={this.handleInputChange} />
