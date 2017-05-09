@@ -12,7 +12,6 @@ import {
   withRouter,
 } from 'react-router-dom';
 
-import AuthExample from './Routes.jsx';
 import LoginComponent from './Login.jsx';
 import App from './app.jsx';
 
