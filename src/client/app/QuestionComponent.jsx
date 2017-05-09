@@ -14,14 +14,14 @@ const QuestionComponent = (props) => {
     <FlatButton onClick={() => props.handleDownvote(question)}
       label="Voted"
       style={{ backgroundColor: '#e0e0e0' }}
-      key={question._id + 'vote'}
+      key={'vote'}
       />
   ) : (
-    <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" key={question._id + 'vote'}/>
+    <FlatButton onClick={() => props.handleUpvote(question)} label="Vote" key={'vote'}/>
   );
-  const answerBtn = <FlatButton onClick={() => props.handleAnswered(question)} label="Clear" key={question._id + 'answer'}/>;
-  const deleteBtn = <FlatButton onClick={() => props.handleDelete(question)} label={question._id + 'delete'} key="delete"/>;
-  const editBtn = <EditComponent question={question} handleEdit={props.handleEdit} key={question._id + 'edit'}/>;
+  const answerBtn = <FlatButton onClick={() => props.handleAnswered(question)} label="Clear" key={'answer'}/>;
+  const deleteBtn = <FlatButton onClick={() => props.handleDelete(question)} label={'delete'} key="delete"/>;
+  const editBtn = <EditComponent question={question} handleEdit={props.handleEdit} key={'edit'}/>;
 
   const buttons = [
     !question.answered
