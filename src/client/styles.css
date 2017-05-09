@@ -79,13 +79,12 @@ body {
   display: flex !important;
   flex-direction: row !important
   flex-wrap: wrap;
-  /*align-items: baseline !important;*/
   margin: 15px 50px !important;
   height: 100px !important;
+  position: relative !important;
 }
 .search-field {
   margin-left: 30px !important;
-  /*display: inline-flex !important;*/
   align-self: baseline !important;
   top: 6px !important;
 }
@@ -98,10 +97,12 @@ body {
   padding-right: 0px !important;
   display: inline-flex !important;
   align-self: baseline !important;
-  margin-left: 400px !important;
+  position: relative !important;
+  margin-left: auto; !important;
 }
 .sortButton {
   padding-left: 0px !important;
   margin-top: 30px !important;
   display: inline-flex !important;
+  margin-left: auto; !important;
 }
