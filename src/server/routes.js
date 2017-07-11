@@ -12,7 +12,7 @@ routes.get('/auth/github/callback',
                     if (user === null) {
                       user = {
                         username: req.user.username,
-                        role: 'admin',
+                        role: 'student',
                         cohort: 'hrnyc-7',
                       };
                       const newUser = new User(user);
