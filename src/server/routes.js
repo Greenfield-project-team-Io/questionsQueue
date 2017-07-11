@@ -9,12 +9,24 @@ routes.get('/auth/github/callback',
               (req, res) => {
                 User.findOne({ username: req.user.username })
                   .then((user) => {
+                    if (user === null) {
+                      user = {
+                        username: req.user.username,
+                        role: 'student',
+                        cohort: 'hrnyc-7',
+                      };
+                      const newUser = new User(user);
+                      newUser.save((err, savedUser) => {
+                        if (err) console.log(err);
+                        else console.log('user added: ', savedUser);
+                      });
+                    }
                     res.cookie('username', user.username);
                     res.cookie('role', user.role);
                     res.cookie('loggedIn', '1');
                     res.redirect('/');
                   })
-                  .catch(() => {
+                  .catch((err) => {
                     req.logout();
                     res.redirect('/');
                   });
