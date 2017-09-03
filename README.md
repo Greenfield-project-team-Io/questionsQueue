@@ -19,6 +19,11 @@ Authentication works with GitHub, but all users must be approved by an admin bef
 
 ![screenshot 1](https://user-images.githubusercontent.com/17677292/30000235-d18b730c-9031-11e7-91ce-301d398a95ae.png)
 
+![screen shot 3](https://user-images.githubusercontent.com/17677292/30000233-cee74356-9031-11e7-8f65-7ab40274dfa9.png)
+
+![screen shot2](https://user-images.githubusercontent.com/17677292/30000234-d03dfbbe-9031-11e7-974c-4188bfb7f927.png)
+
+![screenshot 1](https://user-images.githubusercontent.com/17677292/30000235-d18b730c-9031-11e7-91ce-301d398a95ae.png)
 
 
 ## Table of Contents
