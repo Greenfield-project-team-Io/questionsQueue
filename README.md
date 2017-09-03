@@ -1,6 +1,6 @@
 # Question Queue
 
-A web application that was build for students to submit questions to be answered during a later lecture and TownHall meetings. Questions can optionally include code snippets or tags that is geared towards technical questions. The application also features social interaction for other students to up-vote on a specific question. Authentication works with GitHub, but all users must be approved by an admin before having access to the app. This web application was Built using React, Node, and MongoDB
+A web application that was build for students to submit questions to be answered during a later lecture and TownHall meetings. Questions can optionally include code snippets or tags; this feature is geared towards technical questions. The application also features social interaction for other students to up-vote on a specific question. Authentication works with GitHub, but all users must be approved by an admin before having access to the app. This web application was Built using React, Node, and MongoDB
 
 
 
